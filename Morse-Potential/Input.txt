@@ -1,2 +1,2 @@
 punti   range   numero_autoval 
-1001,     10,     2
+1001,     10,     3
