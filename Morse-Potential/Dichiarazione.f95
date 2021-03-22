@@ -70,7 +70,7 @@ MODULE Dichiarazione
     !
     !Formati scrittura su file 
     CHARACTER(LEN = * ),PARAMETER :: FMTwrite = "(f15.10)"
-    CHARACTER(LEN = * ),PARAMETER :: FMTwrite_AV = "(i3,a4,f15.10,a4,f15.10)"
+    CHARACTER(LEN = * ),PARAMETER :: FMTwrite_AV = "(i3,a4,f15.10)"
     CHARACTER(LEN = * ),PARAMETER :: FMT_fileA = "(A20,i1,A4)", FMT_fileB = "(A20,i2,A4)"
     !
     !

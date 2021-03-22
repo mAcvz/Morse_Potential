@@ -29,18 +29,12 @@ MODULE Scrittura_File
         !
         !
         OPEN(UNIT=UnitAVAL,FILE=FileName_Autoval,IOSTAT=ioerr)
-        WRITE(UNIT=UnitAVAL,FMT='(a40)' ,IOSTAT=ioerr) "Indice     Autovalore        Discrepanza"
-        !DO i = 0, M-1
         !
-            !WRITE(UNIT=UnitAVAL,FMT= FMTwrite_AV,IOSTAT=ioerr)i,"    ",D(N-i)/2,"  ",ABS((i+0.5) - D(N-i)/2 )  ! stampa A.Valori con errore
-            
+        WRITE(UNIT=UnitAVAL,FMT='(a22)' ,IOSTAT=ioerr) "Indice     Autovalore"
         !
-            !WRITE(*,FMT="(i3,f15.10,f15.10)")i,D(N-i)/2,ABS((i+0.5) - D(N-i)/2)
-        !END DO 
+        WRITE(UNIT=UnitAVAL,FMT= FMTwrite_AV,IOSTAT=ioerr)(i,"    ",D(N-i)/2,i=0,M-1) ! stampa A.Valori con errore su file
         !
-        WRITE(UNIT=UnitAVAL,FMT= FMTwrite_AV,IOSTAT=ioerr)(i,"    ",D(N-i)/2,"  ",ABS((i+0.5) - D(N-i)/2 ),i=0,M-1) ! stampa A.Valori con errore su file
-        !
-        WRITE(*,FMT="(i3,f15.10,f15.10)",IOSTAT=ioerr)(i,D(N-i)/2,ABS((i+0.5) - D(N-i)/2),i=0,M-1)  ! stampa A.Valori con errore su display
+        WRITE(*,FMT="(i3,f15.10)",IOSTAT=ioerr) i,D(N-i)/2                            ! stampa A.Valori con errore su display
         !
         CLOSE(UNIT=UnitAVAL,IOSTAT=ioerr)
         !
