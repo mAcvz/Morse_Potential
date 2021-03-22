@@ -62,11 +62,6 @@ PROGRAM Diagonalizzazione
     DO i = 1,N 
         D(i) = (2./h**2 + (1 - exp(-(alpha)*(-L/2. + h*(i-1)) ))**2)
     END DO 
-   
-    !DO i = 1,N 
-    !    D(i) = (2./h**2 + (-L/2. + h*(i-1))**2 )
-    !END DO 
-
     !
     !
     ! Funzione lapack: per determinazione di autovalori & auotovettori : controllare documentazione
