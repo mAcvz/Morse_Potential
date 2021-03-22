@@ -19,18 +19,34 @@ MODULE Control !!!
         CHARACTER :: answer 
         !
         !
+        IF (N .LE. 0 .OR. L .LE. 0 .OR. M .LE. 0 .OR. alpha .LE. 0  )  THEN  ! CONTROLLO POSITIVITA'
+            !
+            WRITE(*,*) "OPERAZIONE ANNULLATA - valori in ingresso non corretti"
+            STOP
+            !
+        ELSE
+        !
+        END IF 
+        !
+        !    
+        !
         IF (ioerrInput .EQ. 0 )  THEN  ! CONTROLLO LETTURA
             !
             CONTINUE
             !
         ELSE
             !
-            WRITE(*,*) "(ERRORE DI INSERIMENTO: L,N,M non sono stati inseriti corretamente - ARRESTO)"
+            WRITE(*,*) "(ERRORE DI INSERIMENTO: L,N,M,alpha non sono stati inseriti corretamente - ARRESTO)"
             STOP
             !
         END IF
         !
         !
+        IF (alpha .LE. 0.5 .OR. alpha .GE. 2.0 ) THEN  ! CONTROLLO RANGE DI ALPHA
+        !
+            WRITE(*,*) "OPERAZIONE ANNULLATA - valore di alpha non corretto"
+            STOP
+        END IF 
         !
         IF ( M > 99) THEN                     ! CONTROLLO N° A.VETTORI & A.VALORI STAMPATI
             WRITE(*,*) "ERRORE: n° di autovettori richiesti in fase di stampa ECCESSIVO - ARRESTO"
@@ -42,10 +58,10 @@ MODULE Control !!!
             WRITE(*,*) "Si desidera continuare?  y/n"
             !
             READ(*,*,IOSTAT = ioerrInput) answer
+            ! 
+            IF (ioerrInput .EQ. 0 .AND. answer .EQ. "y") THEN  
             !
-            IF (ioerrInput .EQ. 0 .AND. answer .EQ. "y") THEN
-            !
-                CONTINUE
+                CONTINUE 
             !
             ELSE
             !

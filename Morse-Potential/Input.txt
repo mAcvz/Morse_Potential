@@ -1,2 +1,3 @@
-punti   range   numero_autoval 
-1001,     10,     3
+punti   range   numero_autoval  alpha 
+2001,     40,       3,           0.6
+ 

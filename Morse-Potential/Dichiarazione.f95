@@ -29,6 +29,7 @@ MODULE Dichiarazione
     !
     ! M - numero di autovalori & autovettori salvati su file
     ! P - Gli autovettori verrano valutati su N punti ma salvati su file con passo N/P
+    ! alpha - parametro che determina l'ampiezza della buca di potenziale di morse
     ! ( ioerr,ioerrInput ) - variabili di controllo 
     ! ( UnitAVAL, UnitGRIGLIA ,UnitAVET,UnitRead)    - numero varie unità  di memoria
     !
@@ -44,6 +45,7 @@ MODULE Dichiarazione
     ! file_dati_autovet - nome file.txt autovettori in fase di salvataggio su disco 
     ! name_start - variabile usata per generazione nomi file.txt progressivi (autovettori)
     ! name_end - variable usata per generazione nomi file.txt progressivi in USCITA (autovettori)
+    ! 
     !
     !
     IMPLICIT NONE   
@@ -51,7 +53,7 @@ MODULE Dichiarazione
     !
     INTEGER :: N, LDZ,Info
     CHARACTER,PARAMETER :: COMPTZ = 'I'
-    DOUBLE PRECISION:: h, L
+    DOUBLE PRECISION:: h, L,alpha
     DOUBLE PRECISION, DIMENSION(:), ALLOCATABLE :: D, E, Work
     DOUBLE PRECISION, DIMENSION(:,:), ALLOCATABLE :: Z 
     !

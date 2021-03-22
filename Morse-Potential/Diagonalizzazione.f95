@@ -32,21 +32,11 @@ PROGRAM Diagonalizzazione
     !
     READ(UNIT=UnitRead,FMT = *,IOSTAT = ioerrInput)
     !
-    READ(UNIT=UnitRead,FMT = *,IOSTAT = ioerrInput) N,L,M
+    READ(UNIT=UnitRead,FMT = *,IOSTAT = ioerrInput) N,L,M,alpha 
     !
     CLOSE(UNIT=UnitRead,IOSTAT=ioerrInput)
     !
-    print*,N,L,M
-    
-    !WRITE(*,*) "RANGE INTERVALLO L =  "
-    !READ(*,*,IOSTAT = ioerrL) L
-    !
-    !WRITE(*,*) 'N° punti di suddivisione griglia N = '
-    !READ(*,*,IOSTAT = ioerrN) N
-    !
-    !WRITE(*,*) 'N° AutoVAL / AutoVETT salvati M = '
-    !READ(*,*,IOSTAT = ioerrM) M  
-    !
+    print*,N,L,M,alpha
     !
     ! CONTROLLO INSERIMENTO
     CALL Control_Ins()
@@ -63,13 +53,19 @@ PROGRAM Diagonalizzazione
     ALLOCATE(Z(LDZ,N))
     !
     !
+    
     ! CALCOLO: passo di avanzamento h e creazione vettori E e D
     h = L/(N-1)
     E = -1. / h**2 
     !
+    !V(i) = (1 - exp(-(alpha)*(-L/2. + h*(i-1)) ))**2
     DO i = 1,N 
-        D(i) = (2./h**2 + (-L/2. + h*(i-1))**2 )
+        D(i) = (2./h**2 + (1 - exp(-(alpha)*(-L/2. + h*(i-1)) ))**2)
     END DO 
+   
+    !DO i = 1,N 
+    !    D(i) = (2./h**2 + (-L/2. + h*(i-1))**2 )
+    !END DO 
 
     !
     !
