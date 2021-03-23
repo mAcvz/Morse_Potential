@@ -1,4 +1,4 @@
-MODULE Control !!! WHEREIS LAPACK ECCHECCAZZO 
+MODULE Control !!!
     !
     ! Modulo contenente 2 subroutine con il compito di gestire eventuali errori:
     !
