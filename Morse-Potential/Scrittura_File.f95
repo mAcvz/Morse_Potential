@@ -34,7 +34,7 @@
         !
         WRITE(UNIT=UnitAVAL,FMT= FMTwrite_AV,IOSTAT=ioerr)(i,"    ",D(N-i)/2,i=0,M-1) ! stampa A.Valori su file
         !
-        WRITE(*,FMT="(i3,f15.10)",IOSTAT=ioerr) i,D(N-i)/2                            ! stampa A.Valori su display
+        WRITE(*,FMT="(i3,f15.10)",IOSTAT=ioerr)(i,D(N-i)/2,i=0,M-1)                           ! stampa A.Valori su display
         !
         CLOSE(UNIT=UnitAVAL,IOSTAT=ioerr)
         !
