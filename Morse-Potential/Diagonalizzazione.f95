@@ -1,7 +1,7 @@
 PROGRAM Diagonalizzazione
     ! 
-    ! Programma che prende in ingresso L,N,M e richiama la funzione lapack DPTEQR(...)  per 
-    ! risolvere l'EQ. di Schrodinger unidimensionale per un potenziale armonico. Il problema
+    ! Programma che prende in ingresso L,N,M,alpha e richiama la funzione lapack DPTEQR(...)  per 
+    ! risolvere l'EQ. di Schrodinger unidimensionale per il potenziale di Morse. Il problema
     ! viene affrontato determinando A.Valori e A.Vettori (riscalati) di una matrice tridiagonale. 
     ! Il programma salva su file.txt i risultati ottenuti
     ! 
@@ -18,11 +18,11 @@ PROGRAM Diagonalizzazione
     IMPLICIT NONE    
     !
     !
-    ! Lettura RANGE, N°PUNTI e N° Autovalori & Autovettori
+    ! Lettura RANGE, N°PUNTI, N° Autovalori & Autovettori, alpha
     !
     WRITE(*,*) "PROGRAMMA:  "
     !
-    WRITE(*,*) "OSCILLATORE ARMONICO QUANTISTICO: CALCOLO AUTO VALORI & AUTO FUNZIONI "
+    WRITE(*,*) "POTENZIALE DI MORSE: CALCOLO AUTO VALORI & AUTO FUNZIONI "
     WRITE(*,*)
     !
     WRITE(*,*) "Lettura parametri da file in corso: " 

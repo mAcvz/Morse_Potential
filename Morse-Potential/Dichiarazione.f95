@@ -39,7 +39,7 @@ MODULE Dichiarazione
     ! FMT_fileA,FMT_fileB) - formati di stampa usati per generare la succesione di nomi "file_dati_autovet"
     !
     !
-    ! FileName_Autoval - nome file.txt autovolori in fase di salvataggio su disco
+    ! FileName_Autoval - nome file.txt autovalori in fase di salvataggio su disco
     ! File_Punti_Valutazione - nome file.txt punti della griglia in fase di salvataggio su disco
     ! FileInput - nome file.txt in cui sono salvati i parametri del problema
     ! file_dati_autovet - nome file.txt autovettori in fase di salvataggio su disco 
@@ -51,16 +51,16 @@ MODULE Dichiarazione
     IMPLICIT NONE   
     !
     !
-    INTEGER :: N, LDZ,Info
+    INTEGER :: N, M, LDZ, Info
     CHARACTER,PARAMETER :: COMPTZ = 'I'
-    DOUBLE PRECISION:: h, L,alpha
+    DOUBLE PRECISION:: h, L, alpha
     DOUBLE PRECISION, DIMENSION(:), ALLOCATABLE :: D, E, Work
     DOUBLE PRECISION, DIMENSION(:,:), ALLOCATABLE :: Z 
     !
     !
     !Variabili di controllo
-    INTEGER :: k,i,M,ioerr=0,ioerrInput=0
-    INTEGER, PARAMETER :: P = 200
+    INTEGER :: k, i, ioerr=0, ioerrInput=0
+    INTEGER, PARAMETER :: P = 200     !FORSE è MEGLIO METTERE K,I,P FUORI DALLE VARIABILI DI CONTROLLO (?)
     !
     !
     !Unità  scrittura su file
