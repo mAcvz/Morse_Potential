@@ -4,7 +4,7 @@
     !
     !
     ! 1) SUBROUTINE  Scrittura_File_Autoval (...)
-    ! genera 1 file.txt su cui salvare A.valori con il loro errore
+    ! genera 1 file.txt su cui salvare A.valori 
     !
     !
     ! 2) SUBROUTINE Scrittura_File_Autovet (...)
@@ -32,9 +32,9 @@
         !
         WRITE(UNIT=UnitAVAL,FMT='(a22)' ,IOSTAT=ioerr) "Indice     Autovalore"
         !
-        WRITE(UNIT=UnitAVAL,FMT= FMTwrite_AV,IOSTAT=ioerr)(i,"    ",D(N-i)/2,i=0,M-1) ! stampa A.Valori con errore su file
+        WRITE(UNIT=UnitAVAL,FMT= FMTwrite_AV,IOSTAT=ioerr)(i,"    ",D(N-i)/2,i=0,M-1) ! stampa A.Valori su file
         !
-        WRITE(*,FMT="(i3,f15.10)",IOSTAT=ioerr) i,D(N-i)/2                            ! stampa A.Valori con errore su display
+        WRITE(*,FMT="(i3,f15.10)",IOSTAT=ioerr) i,D(N-i)/2                            ! stampa A.Valori su display
         !
         CLOSE(UNIT=UnitAVAL,IOSTAT=ioerr)
         !
@@ -115,7 +115,7 @@
         CLOSE(UNIT=UnitGRIGLIA,IOSTAT=ioerr)
         ! 
         control_5: IF (ioerr .NE. 0) THEN
-            PRINT "('ESITO SCRITTURA PUNTI DI VALUTAZIONE : ioerr = ',i1,' ERRORE')",ioerr         ! sito scrittura
+            PRINT "('ESITO SCRITTURA PUNTI DI VALUTAZIONE : ioerr = ',i1,' ERRORE')",ioerr         ! Esito scrittura
         END IF control_5
         !
     END SUBROUTINE Scrittura_File_Griglia
