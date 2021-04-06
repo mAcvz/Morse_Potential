@@ -35,7 +35,7 @@ PROGRAM Diagonalizzazione
     CLOSE(UNIT=UnitRead,IOSTAT=ioerrInput)
     !
     
-    WRITE(*,FMT = "(a4,i5,a5,f5.1,a5,i2,a9,f5.3)")"N =",N," L =",L,"  M =",M,"  apha = ",alpha, NEW_LINE("A")
+    WRITE(*,FMT="(a4,i5,a5,f5.1,a5,i2,a9,f5.3)")"N =",N," L =",L,"  M =",M,"  apha = ",alpha, NEW_LINE("A")
     !
     ! CONTROLLO INSERIMENTO
     CALL Control_Ins()
