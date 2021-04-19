@@ -1,3 +1,3 @@
 punti   range   numero_autoval  alpha 
-1001,    20,       3,           0.6
+1500,    100,       5,            0.6
  

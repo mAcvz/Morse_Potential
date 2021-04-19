@@ -42,7 +42,7 @@ MODULE Control !!!
         END IF
         !
         !
-        IF (alpha .LE. 0.5 .OR. alpha .GE. 2.0 ) THEN  ! CONTROLLO RANGE DI ALPHA
+        IF (alpha .LT. 0.5 .OR. alpha .GT. 2.0 ) THEN  ! CONTROLLO RANGE DI ALPHA
         !
             WRITE(*,*) "OPERAZIONE ANNULLATA - valore di alpha non corretto"
             STOP

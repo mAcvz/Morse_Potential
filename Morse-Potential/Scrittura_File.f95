@@ -112,7 +112,7 @@
         !
         OPEN(UNIT=UnitGRIGLIA,FILE=File_Punti_Valutazione,IOSTAT=ioerr)
         !
-        WRITE(UNIT=UnitGRIGLIA,FMT= FMTwrite,IOSTAT=ioerr)(-L/2. + h*(i-1),i=1,N,N/P)
+        WRITE(UNIT=UnitGRIGLIA,FMT= FMTwrite,IOSTAT=ioerr)( h*(i-1),i=1,N,N/P)
         !
         CLOSE(UNIT=UnitGRIGLIA,IOSTAT=ioerr)
         ! 
