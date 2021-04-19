@@ -29,13 +29,13 @@ program  main_2_0
     allocate(W(N))
     allocate(WORK(LWORK))
     !
-    h = L/dble(N)
+    h = 2*L/dble(N)
     do i=1, N
-        x(i) = -L/2.d0 + (h*(i-1))    
+        x(i) = -L + (h*(i-1))    
         in(i) = x(i)**2
     end do
     !call cpu_time(tic)    
-    !UTILIZZO FFTW3j
+    !UTILIZZO FFTW3
     call dfftw_plan_dft_1d(plan,N,in,out,FFTW_forward,fftw_estimate)
     call dfftw_execute(plan,in,out)
     call dfftw_destroy_plan(plan)
@@ -85,8 +85,8 @@ program  main_2_0
     close(unit=4)
     !
     
-    !Ham = Ham + V
-    Ham = Ham + V_true
+    Ham = Ham + V
+    !Ham = Ham + V_true
 
 
     call dsyev(JOBZ,UPLO,N,Ham,N,W,WORK,LWORK,INFO)
