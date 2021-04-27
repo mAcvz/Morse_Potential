@@ -50,6 +50,7 @@ axes[1,1].set_xlabel('x')
 axes[1,1].set_ylabel('y')
 axes[1,1].set_title('autovet_4')
 
+fig.tight_layout() 
 plt.show()
 
 
