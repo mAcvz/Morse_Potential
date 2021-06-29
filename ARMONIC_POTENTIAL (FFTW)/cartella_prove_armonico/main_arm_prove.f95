@@ -4,34 +4,33 @@ program  main_2_0
     include "fftw3.f"
     integer, parameter :: dp = kind(0.0D0) 
     real(kind=dp), parameter :: pi = acos(-1.d0)
-    integer :: N,F,i,j,INFO,LWORK ,k,kp
+    integer :: N,F,i,j,INFO,LWORK
     character, parameter :: JOBZ = 'V', UPLO = 'U'
     !
     real(kind=dp) :: h, L !,tic, toc 
     real(kind=dp),dimension(:),allocatable :: x ,W,WORK,K_vec
     complex(kind=dp),dimension(:),allocatable :: in,out
-    real(kind=dp),dimension(:,:),allocatable :: V, V_true, Ham
+    real(kind=dp),dimension(:,:),allocatable :: V, Ham
     integer(kind=dp) :: plan 
     !lettura
-    open(unit=1,file='input_prova.dat')   
+    open(unit=1,file='input_prova.dat')
     read(unit=1,fmt=*)
-    read(unit=1,fmt=*)N,L,F
-    close(unit=1)
+    read(unit=1,fmt=*)N,L,F  ! F -> numero di punti su cui definiamo il potenziale reale
+    close(unit=1)           
     !
-    LWORK = 34000
+    LWORK = 1700
     !
-    allocate(x(N))
-    allocate(in(N))
+    allocate(x(F))
+    allocate(in(F))
     allocate(out(N))
     allocate(V(N,N))
-    allocate(V_true(N,N))
     allocate(Ham(N,N))
     allocate(W(N))
     allocate(WORK(LWORK))
     allocate(K_vec(N))
     !
-    h = 2*L/dble(N)
-    do i=1, N
+    h = 2*L/dble(F)
+    do i=1, F
         x(i) = -L + (h*(i-1))    
         in(i) = x(i)**2
     end do
@@ -40,8 +39,7 @@ program  main_2_0
     call dfftw_plan_dft_1d(plan,N,in,out,FFTW_forward,fftw_estimate)
     call dfftw_execute(plan,in,out)
     call dfftw_destroy_plan(plan)
-    out = out/dble(N)        !????
-
+    out = out/dble(N)        ! Normalizzazione 
 
     ! call cpu_time(toc)
     open(unit=2,file='file_output.dat')
@@ -60,7 +58,7 @@ program  main_2_0
     end do 
     !  k = i *(pi/L)     
     !
-    
+      
     Ham = 0.d0 
     do i=1,N
         if (i <= N/2) then
@@ -76,30 +74,14 @@ program  main_2_0
     open(unit=3,file='riga_v.txt')
     write(unit=3,fmt="(i4,f15.5)")(i,real(V(1,i)),i=1,N)
     close(unit=3)
-    !METODO ANALITICO 
-    do k = 1, N 
-        do kp = 1, N 
-            if (kp > k) then       !QUI CI VA .ne. PER COSTRUIRE TUTTA LA MATRICE V_TRUE
-                V_true(k,kp) = ((((pi*(kp-k))**2 -2)*sin(pi*(kp-k))) + (2*(kp-k)*pi*cos(pi*(kp-k)))) / (((pi*(kp-k))**3)/(L**2))
-            end if 
-       end do 
-    end do 
-    do i = 1, N
-        V_true(i,i) = (L**2)/3
-    end do 
-    !    
-    open(unit=4,file='riga_v_true.txt')
-    write(unit=4,fmt="(i4,f15.5,f15.5)")(i,V_true(1,i),V_true(2,i),i=1,N)
-    close(unit=4)
-    !
+    
     
     Ham = Ham + V
-    !Ham = Ham + V_true
 
 
     call dsyev(JOBZ,UPLO,N,Ham,N,W,WORK,LWORK,INFO)
     print*, WORK(1)
     print*, INFO 
-    write(*,fmt="(i4,f15.10)")(i,W(i)/2 ,i=1,5)
+    write(*,fmt="(i4,f15.5)")(i,W(i)/2 ,i=1,5)
 !  
 end program  main_2_0

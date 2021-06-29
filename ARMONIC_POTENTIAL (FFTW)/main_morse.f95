@@ -30,10 +30,10 @@ program  main_morse
         allocate(K_vec(N))
         allocate(RWORK(3*N-2))
         !
-        h = 2*L/dble(N)
+        h = 2*L/dble(N)   !SECONDO ME SAREBBE N-1 MA NON FUNZIONA 
         do i=0, N-1
             x(i+1) = h*i
-            in(i) = (1 - exp(-(alpha)*(x(i)- L/8.d0) ))**2
+            in(i) = (1 - exp(-(alpha)*(x(i)- L/8.d0) ))**2 ! studiare meglio x0
         end do
         !call cpu_time(tic)    
         !UTILIZZO FFTW3

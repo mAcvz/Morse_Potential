@@ -101,9 +101,15 @@
         END IF control_4
         !
     END SUBROUTINE Scrittura_File_Autovet
-        !
-        !
-        !
+    !
+    !
+    !
+    SUBROUTINE Scrittura_File_Autovet_Mono_file()
+    END SUBROUTINE Scrittura_File_Autovet_Mono_file
+
+    !
+    !
+    !
     SUBROUTINE  Scrittura_File_Griglia()   !!! scrittura GRIGLIA
         !
         IMPLICIT NONE 
