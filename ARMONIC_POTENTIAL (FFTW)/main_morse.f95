@@ -5,13 +5,14 @@ program  main_morse
         !
         integer, parameter :: dp = kind(0.0D0) 
         real(kind=dp), parameter :: pi = acos(-1.d0)
-        integer :: N, i, j, INFO, LWORK 
+        integer :: N, i, j, s , INFO, LWORK 
         character, parameter :: JOBZ = 'V', UPLO = 'U'
         real(kind=dp) :: h, L, alpha!,tic, toc 
         real(kind=dp),dimension(:),allocatable :: x, W, K_vec, RWORK
         complex(kind=dp),dimension(:),allocatable :: in, out, WORK
-        complex(kind=dp),dimension(:,:),allocatable :: Ham, V
+        complex(kind=dp),dimension(:,:),allocatable :: Ham, V, Avett
         integer(kind=dp) :: plan 
+        complex(kind=dp) :: sum = (0.d0,0.d0)
         !lettura
         open(unit=1,file='file_input.dat')
         read(unit=1,fmt=*)
@@ -29,11 +30,12 @@ program  main_morse
         allocate(WORK(LWORK))
         allocate(K_vec(N))
         allocate(RWORK(3*N-2))
+        allocate(Avett(N,5))
         !
-        h = 2*L/dble(N)   !SECONDO ME SAREBBE N-1 MA NON FUNZIONA 
+        h = 2*L/dble(N)   ! SECONDO ME SAREBBE N-1 MA NON FUNZIONA 
         do i=0, N-1
             x(i+1) = h*i
-            in(i) = (1 - exp(-(alpha)*(x(i)- L/8.d0) ))**2 ! studiare meglio x0 prima era L/8
+            in(i+1) = (1 - exp(-(alpha)*(x(i+1)- L/8.d0) ))**2 ! studiare meglio x0 prima era L/8
         end do
         !call cpu_time(tic)    
         !UTILIZZO FFTW3
@@ -82,9 +84,27 @@ program  main_morse
         print*, INFO 
         write(*,fmt="(i4,f15.10)")(i,W(i)/2 ,i=1,5)
         !
-        open(unit=6,file='autovet.txt')
-        write(unit=6,fmt="(f15.5)")(real(Ham(i,1)),i=1,N) ! non corrispondono a quelli dello spazio reale
-        close(unit=6)
+        !
+        !SALVATAGGIO SU FILE DI AUTOVETTORI IN SPAZIO RECIPROCO
+        !open(unit=6,file='autovet.txt')
+        !write(unit=6,fmt="(f15.5)")(real(Ham(i,1)),i=1,N) ! non corrispondono a quelli dello spazio reale
+        !close(unit=6)
+        !
+        !
+        !AUTOVETTORI RIPORTATI IN SPAZIO REALE, PER ORA NON MOLTIPLICHIAMO PER LA NORMALIZZAZIONE TANTO 
+        ! E' UN FATTORE MOLTIPLICATIVO, NON VARIA L'ANDAMENTO
+        do s=1,5
+            do i=1,N 
+                sum = 0
+                do j=1,N
+                   sum = sum + cmplx(cos(K_vec(j)*x(i)),-sin(K_vec(j)*x(i)))*Ham(j,s)
+                end do 
+                Avett(i,s) = sum 
+            end do 
+        end do 
+        open(unit=7,file='autovet_real.txt')
+        write(unit=7,fmt="(f15.5)")(real(Avett(i,2)),i=1,N) ! non corrispondono a quelli dello spazio reale
+        close(unit=7)
     !  
     end program  main_morse
     
