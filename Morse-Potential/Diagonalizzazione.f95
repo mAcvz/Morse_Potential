@@ -35,7 +35,7 @@ PROGRAM Diagonalizzazione
     CLOSE(UNIT=UnitRead,IOSTAT=ioerrInput)
     !
     
-    WRITE(*,FMT = "(a4,i5,a5,f5.1,a5,i2,a9,f5.3)")"N =",N," L =",L,"  M =",M,"  alpha = ",alpha, NEW_LINE("A")
+    WRITE(*,FMT = "(a4,i6,a5,f8.1,a5,i2,a9,f5.3)")"N =",N," L =",L,"  M =",M,"  alpha = ",alpha, NEW_LINE("A")
     !
     ! CONTROLLO INSERIMENTO
     CALL Control_Ins()
@@ -61,7 +61,7 @@ PROGRAM Diagonalizzazione
     
     DO i = 1,N 
 
-        D(i) = (2./h**2 + (1 - exp(-(alpha)*(h*(i-1) - 40.d0/8.d0)))**2)  ! inserire xo come parametro 
+        D(i) = (2./h**2 + (1 - exp(-(alpha)*(h*(i-1) - L/8.d0)))**2)  
 
     END DO 
     !

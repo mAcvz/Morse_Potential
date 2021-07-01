@@ -19,7 +19,7 @@ MODULE Control !!!
         CHARACTER :: answer 
         !
         !
-        IF (N .LE. 0 .OR. L .LE. 0 .OR. M .LE. 0 .OR. alpha .LE. 0  )  THEN  ! CONTROLLO POSITIVITA'
+        IF (N .LE. 0 .OR. L .LE. 0 .OR. M .LE. 0 .OR. alpha .LT. 0  )  THEN  ! CONTROLLO POSITIVITA'
             !
             WRITE(*,*) "OPERAZIONE ANNULLATA - valori in ingresso non corretti"
             STOP
@@ -42,7 +42,7 @@ MODULE Control !!!
         END IF
         !
         !
-        IF (alpha .LT. 0.5 .OR. alpha .GT. 2.0 ) THEN  ! CONTROLLO RANGE DI ALPHA
+        IF (alpha .LT. 0 .OR. alpha .GT. 6.0 ) THEN  ! CONTROLLO RANGE DI ALPHA
         !
             WRITE(*,*) "OPERAZIONE ANNULLATA - valore di alpha non corretto"
             STOP
