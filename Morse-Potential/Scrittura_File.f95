@@ -1,4 +1,4 @@
- MODULE Scrittura_File
+z MODULE Scrittura_File
     !
     ! Modulo contenente 3 SUBROUTINE dedicate alla scrittura su file: 
     !

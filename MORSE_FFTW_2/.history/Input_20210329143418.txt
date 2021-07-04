@@ -1,0 +1,2 @@
+punti   range   numero_autoval  funzioni_base
+1001,     10,     2                 1001
