@@ -75,7 +75,7 @@ PROGRAM  main_morse
         CALL ZHEEV (JOBZ,UPLO,N,Ham,N,W,WORK,LWORK,RWORK,INFO)
         CALL Control_ZHEEV()
         !
-        WRITE(*,FMT=fmt_LWORK_term) "SCELTA OTTIMALE DELLA VARIABILE LWORK : ",REAL(WORK(1))
+        WRITE(*,FMT=fmt_LWORK_term) "SCELTA OTTIMALE DELLA VARIABILE LWORK : ",INT(WORK(1))
         !
         ! STAMPA A VIDEO DEGLI AUTOVALORI 1,2 ... M
         WRITE(*,FMT = "(a19,i2)") "AUTOVALORI: 1,2 ...",M, NEW_LINE("A")
@@ -100,6 +100,7 @@ PROGRAM  main_morse
         !
         CALL Scrittura_A_vet()
         !
+       
     !  
     END PROGRAM  main_morse
     
