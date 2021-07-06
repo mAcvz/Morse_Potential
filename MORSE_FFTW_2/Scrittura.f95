@@ -25,15 +25,15 @@ MODULE Scrittura
             WRITE(fmt_write_header ,fmt=fmt_make_fmt_i1) '(2x,a,8x,',M,fmt_A_vet_header,')'
         ELSE IF (M .LT. 100) THEN 
             WRITE(fmt_write_row ,fmt=fmt_make_fmt_f2) '(',"f8.4,",M,fmt_A_vet,')'
-            WRITE(fmt_write_header ,fmt=fmt_make_fmt_i1) '(2x,a,8x,',M,fmt_A_vet_header,')'
+            WRITE(fmt_write_header ,fmt=fmt_make_fmt_i1) '(2x,a,10x,',M,fmt_A_vet_header,')'
         END IF 
         !
         ! SCRITTURA SU FILE DI HEADER & AUTOVETTORI 
-        WRITE(unit=unit_output_eVectors,fmt=fmt_write_header) "x",(TRIM(header(j)),j=1,M)
+        WRITE(unit=unit_output_eVectors,fmt=fmt_write_header) "x",(",",TRIM(header(j)),j=1,M)
         !
         DO i=1,N
-            WRITE(unit=unit_output_eVectors,fmt= fmt_write_row) x(i),(REAL(Avett(i,j)),j=1,M)
-        END DO
+            WRITE(unit=unit_output_eVectors,fmt= fmt_write_row) x(i),(",",REAL(Avett(i,j)),j=1,M)
+        END DO  !fmt_write_row  (f8.4,5(f15.10))  
         !         
         CLOSE(unit=unit_output_eVectors)
         !

@@ -6,12 +6,18 @@ PROGRAM  main_morse
         !
         IMPLICIT NONE
         !
-        INCLUDE "fftw3.f"
+        INCLUDE "fftw3.f" 
         !
         ! LETTURA DA FILE
         OPEN(UNIT = unit_input , FILE = unit_input_name, IOSTAT = ioerrInput)
         READ(UNIT = unit_input , FMT = *, IOSTAT = ioerrInput)
-        READ(UNIT = unit_input , FMT = *, IOSTAT = ioerrInput) N,L,alpha,M,LWORK
+        !READ(UNIT = unit_input , FMT = *, IOSTAT = ioerrInput) N,Z,L,C,alpha,B,M,O,LWORK,G
+        
+        READ(UNIT = unit_input , FMT = *, IOSTAT = ioerrInput) N
+        READ(UNIT = unit_input , FMT = *, IOSTAT = ioerrInput) L,label
+        READ(UNIT = unit_input , FMT = *, IOSTAT = ioerrInput) alpha,label
+        READ(UNIT = unit_input , FMT = *, IOSTAT = ioerrInput) M,label
+        READ(UNIT = unit_input , FMT = *, IOSTAT = ioerrInput) LWORK,label
         CLOSE(UNIT = unit_input, IOSTAT = ioerrInput) 
         !
         ! CONTROLLO INSERIMENTO 

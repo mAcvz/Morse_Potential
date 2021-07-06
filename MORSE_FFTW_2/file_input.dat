@@ -1,2 +1,6 @@
-N       L       alpha   M   LWORK
-200    40        0.6    5   6600
+PARAMETRI INPUT:
+200,   prova
+40,     PROVA
+0.6,   prova
+5,     prova
+6600,  prova
