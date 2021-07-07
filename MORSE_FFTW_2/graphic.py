@@ -1,16 +1,29 @@
+# GRAFICAZIONE AUTO VETTORI HAMILTONIANA 
 import pandas as pd
-import matplotlib as mpl
 import matplotlib.pyplot as plt
-import numpy as np
 #
-df = pd.read_csv('autovet_real.txt', sep=",")
-print(df) #controllo per vedere se il dataframe è giusto p.s è giusto lo visto con i mei occhi
+# PARAMETRI 
+directory = "Graphic/"      # cartella salvataggio grafici
+size = (9.7, 7)             # dimensioni immagine 
+col = "r"                   # colore marker           
+msize = 3                   # dimensione marker 
+lbsize = 10                 # dimensione testo label
+lgsize = 15                 # dimensione testo label
+my_dpi = 300                # dpi immagine 
+file = 'autovet_real.txt'   # nome file lettura
 #
-plt.figure(figsize=(9.7, 7))
-plt.plot(df.iloc[:,0], df.iloc[:,1],'-',markersize=3,color="r")
-plt.legend(["Auto vettore 1"],prop={"size":15})
-plt.xlabel("x",fontsize=10)
-plt.ylabel("y",fontsize=10)
+# CREAZIONE DATA FRAME DA FILE .txt
+df = pd.read_csv(file, sep=",")
 #
-plt.grid()
-plt.show()
+# GRAFICAZIONE COLONNE DATE FRAME -> AUTOVE VET
+for ind, column in enumerate(df.columns[1:]):
+    #
+    name_figure = ("A_Vet_" + str(ind + 1) + ".png")
+    #
+    plt.figure(figsize=size)
+    plt.plot(df.iloc[:,0], df.iloc[:,ind+1],'-',markersize = msize,color = col)
+    plt.legend(["Auto vettore " + str(ind+1)], prop={"size":lgsize})
+    plt.xlabel("x",fontsize = lbsize)
+    plt.ylabel("y",fontsize = lbsize)
+    plt.savefig(directory + name_figure,dpi = my_dpi)
+#
