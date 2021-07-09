@@ -5,9 +5,9 @@ PROGRAM Main_A
     ! viene affrontato determinando A.Valori e A.Vettori (riscalati) di una matrice tridiagonale. 
     ! Il programma salva su file.txt i risultati ottenuti
     ! 
-    ! VARIABLES dichiarate in MODULE Dichiazione
-    ! SUBROUTINE di controllo in MODULE Control
-    ! SUBROUTINE per salvataggio su file in MODULE Scrittura_File
+    ! VARIABLES dichiarate in MODULE Dichiazione_A
+    ! SUBROUTINE di controllo in MODULE Control_A
+    ! SUBROUTINE per salvataggio su file in MODULE Scrittura_A
     !
     ! PER MAGGIORI INFORMAZIONI CONTROLLARE DOCUMENTAZIONE DI OGNI "MODULE"
     !
@@ -57,7 +57,7 @@ PROGRAM Main_A
     !
     !
     DO i = 1,N 
-        D(i) = (2./h**2 + (1 - exp(-(alpha)*(h*(i-1) - L/8.d0)))**2)  
+        D(i) = (2./h**2 + (1 - exp(-(alpha)*(h*(i-1) - L/6.d0)))**2)  
     END DO 
     !
     ! Funzione lapack: per determinazione di autovalori & auotovettori : controllare documentazione

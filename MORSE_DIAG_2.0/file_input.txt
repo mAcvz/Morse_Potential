@@ -1,5 +1,5 @@
 PARAMETRI INPUT:
-1500,   N
-60,   L
-0.6,   alpha
+3000,   N
+300,   L
+2.0,   alpha
 5,     M

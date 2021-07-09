@@ -1,6 +1,16 @@
 MODULE Scrittura_B
     !
     !
+    ! Modulo contenente 2 SUBROUTINE dedicate alla scrittura su file: 
+    !
+    !
+    ! 1) SUBROUTINE  Scrittura_A_val (...)
+    ! genera 1 file.txt su cui salvare A.valori 
+    !
+    !
+    ! 2) SUBROUTINE Scrittura_A_vet (...)
+    ! genera 1 file.txt con M+1 colonne in cui salvare gli A.vettori 
+    ! valutati sui punti della griglia 
     !
     USE Dichiarazione_B
     !

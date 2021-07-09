@@ -15,16 +15,13 @@ MODULE Control_A
     !
     SUBROUTINE Control_Ins()
         !
-        CHARACTER :: answer 
-        !
         IF (N .LE. 0 .OR. L .LE. 0 .OR. M .LE. 0 .OR. alpha .LT. 0  )  THEN  ! CONTROLLO POSITIVITA'
             WRITE(*,*) "OPERAZIONE ANNULLATA - valori in ingresso non corretti"
             STOP
         ELSE
         !
         END IF 
-        !
-        !    
+        !  
         IF (ioerrInput .EQ. 0 )  THEN  ! CONTROLLO LETTURA
             CONTINUE
         ELSE
@@ -32,35 +29,29 @@ MODULE Control_A
             STOP
         END IF
         !
-        !
-        IF (alpha .LT. 0 .OR. alpha .GT. 6.0 ) THEN  ! CONTROLLO RANGE DI ALPHA
+        IF (alpha .GT. 6.0 ) THEN  ! CONTROLLO RANGE DI ALPHA 
             WRITE(*,*) "OPERAZIONE ANNULLATA - valore di alpha non appartenente a range limite [0,6.0]"
             STOP
         END IF 
         !
-        IF ( M .GT. 99) THEN                     ! CONTROLLO N° A.VETTORI & A.VALORI STAMPATI
+        IF (alpha .LT. 0.5 .OR. alpha .GT. 2.0 ) THEN  ! CONTROLLO RANGE DI ALPHA
+            WRITE(*,*) "WARNING: valore di alpha non appartenente a [0.5,2.0]"
+            CONTINUE
+        END IF 
+        !
+        !
+        IF ( M .GT. 99) THEN                         ! CONTROLLO N° A.VETTORI & A.VALORI STAMPATI
             WRITE(*,*) "ERRORE: n° di autovettori richiesti in fase di stampa ECCESSIVO - ARRESTO"
             STOP
-        ELSE IF (M > 10 ) THEN                   ! CONTROLLO NUMERO PUNTI 1 
-            WRITE(*,'(a43,i2,a9)') "WARNING: n° M elevato - VERRANNO GENERATI  ", M + 2,' file.txt'
-            WRITE(*,*) "Si desidera continuare?  y/n"
-            READ(*,*,IOSTAT = ioerrInput) answer
-            IF (ioerrInput .EQ. 0 .AND. answer .EQ. "y") THEN  
-                CONTINUE 
-            ELSE
-                WRITE(*,*) "OPERAZIONE ANNULLATA - ARRESTO"
-                STOP
-            END IF 
-            !
-        ELSE IF (N .LT. P ) THEN                ! CONTROLLO NUMERO PUNTI 1 
+        ELSE IF (N .LT. P ) THEN                     ! CONTROLLO NUMERO PUNTI 1 
             WRITE(*,FMT="(a,i4)") "ERRORE: n° di punti inferiore al minimo N(min) = ",P+1
             STOP
-        ELSE IF (N .GT. MaxN) THEN               ! CONTROLLO NUMERO PUNTI 2
+        ELSE IF (N .GT. MaxN) THEN                   ! CONTROLLO NUMERO PUNTI 2
             WRITE(*,*) "ERRORE: n° di punti selezionato  troppo elevato - ARRESTO "
             STOP
         ELSE IF (N .GT. WarnN_B ) THEN               ! CONTROLLO NUMERO PUNTI 3
             WRITE(*,*) "WARNING: n° di punti selezionato elevato - L'operazione potrebbe richiedere alcuni minuti "
-        ELSE IF (N/L .LT. WarnN_L) THEN                ! CONTROLLO AMPIEZZA INTERVALLO 
+        ELSE IF (N/L .LT. WarnN_L) THEN              ! CONTROLLO AMPIEZZA INTERVALLO 
             WRITE(*,*) "WARNING: Rapporto N/L < 20 - Il numero di punti potrebbe non essere sufficiente"
         ELSE     
             CONTINUE

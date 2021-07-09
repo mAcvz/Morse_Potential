@@ -2,7 +2,7 @@
 MODULE Dichiarazione_A
     !
     ! Modulo contenente variabili di lavoro della funzione lapack DPTEQR(...)
-    ! e variabili per il funzionamento del main programm (Diagonalizzazione)
+    ! e variabili per il funzionamento del main programm (Main_A)
     ! DOCUMENTAZIONE: 
     ! http://www.netlib.org/lapack/explore-html/d0/d2f/group__double_p_tcomputational_ga03d834df95ce593c02831f77602cfa7d.html#ga03d834df95ce593c02831f77602cfa7d
     ! 
@@ -29,24 +29,23 @@ MODULE Dichiarazione_A
     !
     ! M - numero di autovalori & autovettori salvati su file
     ! P - Gli autovettori verrano valutati su N punti ma salvati su file con passo N/P
+    ! MaxN - numero massimo di punti su cui valutare il potenziale 
+    ! WarnN_B - numero di punti elevato - tempistiche elevate 
+    ! WarnN_L - numero di punti esiguo - bassa precisione 
+    !
     ! alpha - parametro che determina l'ampiezza della buca di potenziale di morse
     ! ( ioerr,ioerrInput ) - variabili di controllo 
-    ! ( UnitAVAL, UnitGRIGLIA ,UnitAVET,UnitRead)    - numero varie unità  di memoria
+    ! ( UnitAVAL,UnitAVET,UnitRead) - numero varie unità  di memoria
     !
-    !
-    ! FMTwrite - variabile formato di stampa usato  nella scrittura di Autovalori e Griglia punti
-    ! FMTwrite_AV - variabile formato di stampa usato  nella scrittura degli Autovettori
-    ! FMT_fileA,FMT_fileB) - formati di stampa usati per generare la succesione di nomi "file_dati_autovet"
+    ! (fmt_ ...) - variabili contenenti i vari formati sotto forma di stringa 
     !
     !
     ! FileName_Autoval - nome file.txt autovalori in fase di salvataggio su disco
-    ! File_Punti_Valutazione - nome file.txt punti della griglia in fase di salvataggio su disco
-    ! FileInput - nome file.txt in cui sono salvati i parametri del problema
-    ! file_dati_autovet - nome file.txt autovettori in fase di salvataggio su disco 
-    ! name_start - variabile usata per generazione nomi file.txt progressivi (autovettori)
-    ! name_end - variable usata per generazione nomi file.txt progressivi in USCITA (autovettori)
+    ! FileName_Autovet - nome file.txt autovettoir in fase di salvataggio su disco 
     ! 
-    !
+    ! label - variabile junk che prente in ingresso stringhe 
+    ! header - vettore di tipo CHARACTER contenente le intestazioni delle diverse colonne
+    ! (i,j,k) - variabili iterative
     !
     IMPLICIT NONE   
     !

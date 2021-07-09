@@ -10,7 +10,7 @@ msize = 3                   # dimensione marker
 lbsize = 10                 # dimensione testo label
 lgsize = 15                 # dimensione testo label
 my_dpi = 300                # dpi immagine 
-file = 'autovet_real.txt'   # nome file lettura
+file = 'autovet.txt'        # nome file lettura
 #
 # CREAZIONE DATA FRAME DA FILE .txt
 df = pd.read_csv(file, sep=",")

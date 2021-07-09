@@ -27,10 +27,10 @@
         !
         WRITE(UNIT=UnitAVAL,FMT='(a22)' ,IOSTAT=ioerr) "Indice     Autovalore"
         !
-        WRITE(UNIT=UnitAVAL,FMT= fmt_write_AV,IOSTAT=ioerr)(i,"    ",D(N-i)/2,i=0,M-1)   ! stampa A.Valori su file
+        WRITE(UNIT=UnitAVAL,FMT= fmt_write_AV,IOSTAT=ioerr)(i,"    ",D(N-i)/2,i=0,M-1)  ! stampa A.Valori su file
         !
         WRITE(*,*)"Anteprima autovalori:" // NEW_LINE("A")
-        WRITE(*,FMT="(i3,f15.10)",IOSTAT=ioerr)(i,D(N-i)/2,i=0,M-1)                  ! stampa A.Valori su display
+        WRITE(*,FMT="(i3,f15.10)",IOSTAT=ioerr)(i,D(N-i)/2,i=0,M-1)                     ! stampa A.Valori su display
         !
         CLOSE(UNIT=UnitAVAL,IOSTAT=ioerr)
         !
@@ -47,7 +47,7 @@
     !
     ! SCRITTURA AUTOVETTORI
     SUBROUTINE  Scrittura_File_Autovet()
-        ! GENEREA UNA COPPIA DI IDENTIFICATORI ADATTI A STAMPARE "M" COLONNE NEL FILE 
+        ! GENERA UNA COPPIA DI IDENTIFICATORI ADATTI A STAMPARE "M" COLONNE NEL FILE 
         CHARACTER(LEN = 2) :: index
         ALLOCATE(header(M))
         !

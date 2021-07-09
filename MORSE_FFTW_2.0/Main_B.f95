@@ -1,6 +1,20 @@
 PROGRAM  Main_B
     !
     !
+    ! 
+    ! Programma che risolvere l'EQ. di Schrodinger unidimensionale per il potenziale di Morse. Il problema
+    ! viene affrontato determinando A.Valori e A.Vettori (riscalati) nel modo seguente:
+    ! si effettua una FFT del potenziele di Morse e si costruisce l'Hamiltoniana 
+    ! nello spazio dei k, dopo di che la si diagonalizza richiamando la funzione lapack ZHEEV(...) 
+    ! e si ottiene una matrice di coefficenti impiegati per cotruire 
+    ! una combinazione linera delle onde piane di una base opportunamente scelta. La comb. lin.
+    ! cosí ottenuta restituisce gli autovettori dell'Hamiltoniana 
+    ! 
+    ! VARIABLES dichiarate in MODULE Dichiazione_B
+    ! SUBROUTINE di controllo in MODULE Control_B
+    ! SUBROUTINE per salvataggio su file in MODULE Scrittura_B
+    !
+    ! PER MAGGIORI INFORMAZIONI CONTROLLARE DOCUMENTAZIONE DI OGNI "MODULE"
     !
         USE Dichiarazione_B
         USE Scrittura_B
@@ -49,10 +63,10 @@ PROGRAM  Main_B
         ALLOCATE(RWORK(3*N-2))
         ALLOCATE(Avett(dim_G,M))
         !
-        h = 2*L/DBLE(N)   ! SECONDO ME SAREBBE N-1 MA NON FUNZIONA 
+        h = 2*L/DBLE(N)   
         DO i=0, N-1
             x(i+1) = h*i
-            in(i+1) = (1 - EXP(-(alpha)*(x(i+1)- L/8.d0) ))**2 
+            in(i+1) = (1 - EXP(-(alpha)*(x(i+1)- L/6.d0) ))**2 
         END DO
         !
         ! CREAZIONE GRIGLIA 
@@ -107,7 +121,7 @@ PROGRAM  Main_B
         !
         !
         ! AUTOVETTORI RIPORTATI IN SPAZIO REALE
-        ! PER ORA NON MOLTIPLICHIAMO PER LA NORMALIZZAZIONE TANTO 
+        ! PER ORA NON MOLTIPLICHIAMO PER LA NORMALIZZAZIONE TANTO  !!!!!!!!!!!!!!!!!!!!! ATTENZIONE !!!!!!!!!!!!!!!!!!!!!!!!
         ! E' UN FATTORE MOLTIPLICATIVO, NON VARIA L'ANDAMENTO
         DO s=1,M
             DO i=1,dim_G
