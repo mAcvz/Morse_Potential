@@ -1,8 +1,8 @@
-PROGRAM  main_morse
+PROGRAM  Main_B
     ! 
-        USE Dichiarazione
-        USE Scrittura
-        USE Control
+        USE Dichiarazione_B
+        USE Scrittura_B
+        USE Control_B
         !
         IMPLICIT NONE
         !
@@ -10,9 +10,7 @@ PROGRAM  main_morse
         !
         ! LETTURA DA FILE
         OPEN(UNIT = unit_input , FILE = unit_input_name, IOSTAT = ioerrInput)
-        READ(UNIT = unit_input , FMT = *, IOSTAT = ioerrInput)
-        !READ(UNIT = unit_input , FMT = *, IOSTAT = ioerrInput) N,Z,L,C,alpha,B,M,O,LWORK,G
-        
+        READ(UNIT = unit_input , FMT = *, IOSTAT = ioerrInput)        
         READ(UNIT = unit_input , FMT = *, IOSTAT = ioerrInput) N
         READ(UNIT = unit_input , FMT = *, IOSTAT = ioerrInput) L,label
         READ(UNIT = unit_input , FMT = *, IOSTAT = ioerrInput) alpha,label
@@ -22,7 +20,7 @@ PROGRAM  main_morse
         !
         ! CONTROLLO INSERIMENTO 
         CALL Control_Ins()
-        !
+        ! STAMPA A VIDEO PARAMETRI 
         WRITE(*,FMT=fmt_lettura_input) "PARAMETRI LETTI DA: ",ADJUSTL(unit_input_name) // NEW_LINE("A")
         WRITE(*,FMT=fmt_scrittura_parametri) "N = ",N, "  L = ",L,"  alpha = ",alpha,"  M = ",M,"  LWORK = ", LWORK
         !
@@ -36,24 +34,26 @@ PROGRAM  main_morse
         ALLOCATE(WORK(LWORK))
         ALLOCATE(K_vec(N))
         ALLOCATE(RWORK(3*N-2))
-        ALLOCATE(Avett(N,M))
+        ALLOCATE(Avett(dim_G,M))
         !
         h = 2*L/DBLE(N)   ! SECONDO ME SAREBBE N-1 MA NON FUNZIONA 
         DO i=0, N-1
             x(i+1) = h*i
             in(i+1) = (1 - EXP(-(alpha)*(x(i+1)- L/8.d0) ))**2 
         END DO
-        ! CALL cpu_time(tic)  
+        !
+        ! CREAZIONE GRIGLIA 
+        step = 2*L/ DBLE(dim_G - 1)
+        DO i = 0,(dim_G -1)
+            griglia(i+1) = i*step 
+        END DO 
         !  
         ! UTILIZZO FFTW3
         CALL dfftw_plan_dft_1d(plan,N,in,out,FFTW_forward,fftw_estimate) 
         CALL dfftw_execute(plan,in,out)
         CALL dfftw_destroy_plan(plan)
-        out = out/dble(N)     
+        out = out/DBLE(N)     
         !   
-        ! CALL cpu_time(toc)
-        ! WRITE(*,*) toc - tic 
-        !
         ! COSTRUZIONE MATRICE V
         DO i=0,N-1
             DO j = 1, N-i 
@@ -95,18 +95,18 @@ PROGRAM  main_morse
         ! PER ORA NON MOLTIPLICHIAMO PER LA NORMALIZZAZIONE TANTO 
         ! E' UN FATTORE MOLTIPLICATIVO, NON VARIA L'ANDAMENTO
         DO s=1,M
-            DO i=1,N 
+            DO i=1,200
                 sum = 0
                 DO j=1,N
-                   sum = sum + CMPLX(COS(K_vec(j)*x(i)),-SIN(K_vec(j)*x(i)),KIND=dp)*Ham(j,s)
+                   sum = sum + CMPLX(COS(K_vec(j)*griglia(i)),-SIN(K_vec(j)*griglia(i)),KIND=dp)*Ham(j,s)
                 END DO 
                 Avett(i,s) = sum 
             END DO 
         END DO 
         !
+        ! STAMPA SU FILE AUTO VETTORI 1,2 ... M
         CALL Scrittura_A_vet()
-        !
-       
+        !  
     !  
-    END PROGRAM  main_morse
+    END PROGRAM  Main_B
     

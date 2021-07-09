@@ -1,14 +1,15 @@
-MODULE Scrittura
-    USE Dichiarazione
+MODULE Scrittura_B
+!
+    USE Dichiarazione_B
     !
     IMPLICIT NONE
     !
     CONTAINS
     !
     !
-    ! SUBROUTINE SCRITTURA COLONNE MATRICE Ham + vettore X
+    ! SUBROUTINE SCRITTURA COLONNE MATRICE Ham + vettore griglia
     SUBROUTINE Scrittura_A_vet()
-        ! GENEREA UNA COPPIA DI IDENTIFICATORI ADATTI A STAMPARE "M" COLONNE NEL FILE 
+        ! GENERA UNA COPPIA DI IDENTIFICATORI ADATTI A STAMPARE "M" COLONNE NEL FILE 
         CHARACTER(LEN = 2) :: index
         ALLOCATE(header(M))
         !
@@ -31,9 +32,10 @@ MODULE Scrittura
         ! SCRITTURA SU FILE DI HEADER & AUTOVETTORI 
         WRITE(unit=unit_output_eVectors,fmt=fmt_write_header) "x",(",",TRIM(header(j)),j=1,M)
         !
-        DO i=1,N
-            WRITE(unit=unit_output_eVectors,fmt= fmt_write_row) x(i),(",",REAL(Avett(i,j)),j=1,M)
-        END DO  !fmt_write_row  (f8.4,5(f15.10))  
+        !
+        DO i=1,dim_G
+            WRITE(unit=unit_output_eVectors,fmt= fmt_write_row) griglia(i),(",",REAL(Avett(i,j)),j=1,M)
+        END DO  
         !         
         CLOSE(unit=unit_output_eVectors)
         !
@@ -48,7 +50,5 @@ MODULE Scrittura
         CLOSE(unit=unit_output_eValues)
         !
     END SUBROUTINE Scrittura_A_val
-    !
-    !
-    
-END MODULE
+!  
+END MODULE Scrittura_B
