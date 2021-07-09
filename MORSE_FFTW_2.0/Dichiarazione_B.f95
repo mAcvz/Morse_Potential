@@ -35,6 +35,6 @@ MODULE Dichiarazione_B
     CHARACTER(LEN = * ),PARAMETER ::  fmt_LWORK_term = "(a40, i7)",fmt_Aval = "(i4,f15.10)"
     !
     ! VARIABILI DI CONTROLLO
-    INTEGER :: ioerrInput=0
+    INTEGER :: ioerrInput=0,ioerr=0
 !
 END MODULE Dichiarazione_B

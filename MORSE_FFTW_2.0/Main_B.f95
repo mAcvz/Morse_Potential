@@ -1,5 +1,7 @@
 PROGRAM  Main_B
-    ! 
+    !
+    !
+    !
         USE Dichiarazione_B
         USE Scrittura_B
         USE Control_B
@@ -7,6 +9,15 @@ PROGRAM  Main_B
         IMPLICIT NONE
         !
         INCLUDE "fftw3.f" 
+        !
+        !
+        ! LETTURA RANGE, N°PUNTI, N° Autovalori & Autovettori, alpha
+        WRITE(*,*) NEW_LINE("A") // "PROGRAMMA:  " // NEW_LINE("A")
+        !
+        WRITE(*,*) "POTENZIALE DI MORSE: CALCOLO AUTO VALORI & AUTO FUNZIONI " // NEW_LINE("A")
+        !
+        WRITE(*,*) "Lettura parametri di input da file: ", unit_input_name, NEW_LINE("A")
+        !
         !
         ! LETTURA DA FILE
         OPEN(UNIT = unit_input , FILE = unit_input_name, IOSTAT = ioerrInput)
@@ -20,9 +31,11 @@ PROGRAM  Main_B
         !
         ! CONTROLLO INSERIMENTO 
         CALL Control_Ins()
+        !
         ! STAMPA A VIDEO PARAMETRI 
-        WRITE(*,FMT=fmt_lettura_input) "PARAMETRI LETTI DA: ",ADJUSTL(unit_input_name) // NEW_LINE("A")
         WRITE(*,FMT=fmt_scrittura_parametri) "N = ",N, "  L = ",L,"  alpha = ",alpha,"  M = ",M,"  LWORK = ", LWORK
+        !
+        WRITE(*,*) NEW_LINE("A")
         !
         ! ALLOCAZIONE
         ALLOCATE(x(N))
@@ -83,9 +96,11 @@ PROGRAM  Main_B
         !
         WRITE(*,FMT=fmt_LWORK_term) "SCELTA OTTIMALE DELLA VARIABILE LWORK : ",INT(WORK(1))
         !
+        WRITE(*,*) NEW_LINE("A")
+        !
         ! STAMPA A VIDEO DEGLI AUTOVALORI 1,2 ... M
-        WRITE(*,FMT = "(a19,i2)") "AUTOVALORI: 1,2 ...",M, NEW_LINE("A")
-        WRITE(*,FMT = fmt_Aval) (i,W(i)/2 ,i=1,5)
+        WRITE(*,FMT = "(a,i2)") "ANTEPRIMA AUTOVALORI: 1,2 ...",M, NEW_LINE("A")
+        WRITE(*,FMT = fmt_Aval) (i,W(i)/2 ,i=1,M)
         !
         ! STAMPA SU FILE AUTOVALORI 1,2 ... M
         CALL Scrittura_A_val()
@@ -95,7 +110,7 @@ PROGRAM  Main_B
         ! PER ORA NON MOLTIPLICHIAMO PER LA NORMALIZZAZIONE TANTO 
         ! E' UN FATTORE MOLTIPLICATIVO, NON VARIA L'ANDAMENTO
         DO s=1,M
-            DO i=1,200
+            DO i=1,dim_G
                 sum = 0
                 DO j=1,N
                    sum = sum + CMPLX(COS(K_vec(j)*griglia(i)),-SIN(K_vec(j)*griglia(i)),KIND=dp)*Ham(j,s)
@@ -105,8 +120,11 @@ PROGRAM  Main_B
         END DO 
         !
         ! STAMPA SU FILE AUTO VETTORI 1,2 ... M
-        CALL Scrittura_A_vet()
-        !  
-    !  
+        CALL Scrittura_A_vet() 
+        !
+        WRITE(*,*) NEW_LINE("A"),"END TASK B" ,NEW_LINE("A")
+    !
+    !
+    !
     END PROGRAM  Main_B
     

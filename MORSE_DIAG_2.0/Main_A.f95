@@ -17,7 +17,7 @@ PROGRAM Main_A
     !
     IMPLICIT NONE    
     !
-    ! LTTURA RANGE, N°PUNTI, N° Autovalori & Autovettori, alpha
+    ! LETTURA RANGE, N°PUNTI, N° Autovalori & Autovettori, alpha
     WRITE(*,*) NEW_LINE("A") // "PROGRAMMA:  " // NEW_LINE("A")
     !
     WRITE(*,*) "POTENZIALE DI MORSE: CALCOLO AUTO VALORI & AUTO FUNZIONI " //NEW_LINE("A")
@@ -34,12 +34,14 @@ PROGRAM Main_A
     !
     CLOSE(UNIT=UnitRead,IOSTAT=ioerrInput)
     !
-    WRITE(*,FMT = "(a,i6,a,f6.1,a,i2,a,f5.3)")"N =",N," L =",L,"  M =",M,"  alpha = ",alpha, NEW_LINE("A")
+    WRITE(*,FMT = fmt_write_input)"N =",N," L =",L,"  M =",M,"  alpha = ",alpha
+    !
+    WRITE(*,*) NEW_LINE("A")
     !
     ! CONTROLLO INSERIMENTO
     CALL Control_Ins()
     !
-    WRITE(*,*) "Calcolo ..."
+    WRITE(*,*) "Calcolo ...", NEW_LINE("A")
     !
     ! ALLOCAZIONE VARIABILI DI LAVORO
     LDZ=N
@@ -70,5 +72,9 @@ PROGRAM Main_A
     !
     ! SCRITTURA AUTOVET
     CALL Scrittura_File_Autovet()
-!
+    !
+    WRITE(*,*) NEW_LINE("A"), "END TASK A ",NEW_LINE("A")
+    !
+    !
+    !
 END PROGRAM Main_A

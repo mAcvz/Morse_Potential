@@ -58,43 +58,34 @@ MODULE Dichiarazione_A
     DOUBLE PRECISION, DIMENSION(:,:), ALLOCATABLE :: Z 
     !
     !
-    ! Variabili di controllo
-    INTEGER :: k, i, ioerr=0, ioerrInput=0
-    INTEGER, PARAMETER :: P = 200     !FORSE è MEGLIO METTERE K,I,P FUORI DALLE VARIABILI DI CONTROLLO (?)
+    ! VARIABILI DI CONTROLLO
+    INTEGER :: ioerr=0, ioerrInput=0
     !
     !
-    ! Unità  scrittura su file
-    INTEGER,PARAMETER :: UnitRead = 11, UnitAVAL = 12, UnitGRIGLIA = 13
-    INTEGER :: UnitAVET = 14
+    INTEGER :: k,i,j
+    INTEGER, PARAMETER :: P = 200, MaxN = 12000, WarnN_B = 4000 , WarnN_L = 20    
     !
     !
-    ! Formati scrittura su file 
-    CHARACTER(LEN = * ),PARAMETER :: FMTwrite = "(f15.10)"
-    CHARACTER(LEN = * ),PARAMETER :: FMTwrite_AV = "(i3,a4,f15.10)"
-    CHARACTER(LEN = * ),PARAMETER :: FMT_fileA = "(A20,i1,A4)", FMT_fileB = "(A20,i2,A4)"
+    ! UNITA' SCRITTURA SU FILE 
+    INTEGER,PARAMETER :: UnitRead = 11, UnitAVAL = 12, UnitAVET = 14
     !
     !
-    ! Nomi file in fase di salvataggio su disco
-    CHARACTER(LEN = * ),PARAMETER :: FileName_Autoval = "autoval.txt"
-    CHARACTER(LEN = * ),PARAMETER :: File_Punti_Valutazione = "Punti_valutazione.txt"
-    CHARACTER(LEN = 50) :: file_dati_autovet
-    CHARACTER(LEN = 50) :: FileInput = "Input.txt"
-    CHARACTER(LEN = * ),PARAMETER :: name_start = "dati_autovet_n="
-    CHARACTER(LEN = 50) :: name_end   
+    ! FORMATI SCRITTURA FILE
+    CHARACTER(LEN= 20 ) :: fmt_write_row ,fmt_write_header
+    CHARACTER(LEN = * ),PARAMETER :: fmt_A_vet="(a,f15.10)",fmt_A_vet_header= "(a,a,8x)",fmt_write_AV = "(i3,a4,f15.10)"
+    CHARACTER(LEN = * ),PARAMETER :: fmt_make_fmt_i1 =  "(a,i1,a,a)", fmt_make_fmt_i2 = "(a,i2,a,a)"
+    CHARACTER(LEN = * ),PARAMETER :: fmt_write_input = "(a,i6,a,f6.1,a,i2,a,f5.3)"
+    CHARACTER(LEN = * ),PARAMETER :: fmt_make_fmt_f1 = "(a,a,i1,a,a)", fmt_make_fmt_f2 = "(a,a,i2,a,a)"
     !
-    ! AGGIUNTIVE 
+    !
+    ! NOMI FILE LETTURA & SCRITTURA 
+    CHARACTER(LEN = * ),PARAMETER :: FileName_Autoval = "autoval.txt", FileName_Autovet = "autovet.txt"
+    CHARACTER(LEN = 50) :: FileInput = "file_input.txt"
+    !
+    ! SCRITTURA & LETTURA
     CHARACTER(LEN = 300 ):: label
     CHARACTER(LEN = 50),DIMENSION(:), ALLOCATABLE :: header
-    CHARACTER(LEN = * ),PARAMETER :: unit_eVectors_name = "autovet.txt"
     !
-    ! FORMATI AGGIUNTIVI 
-    CHARACTER(LEN= 20 ) :: fmt_write_row ,fmt_write_header
-    CHARACTER(LEN = * ),PARAMETER :: fmt_A_vet="(a,f15.10)",fmt_A_vet_header= "(a,a,8x)"
-    CHARACTER(LEN = * ),PARAMETER :: fmt_make_fmt_i1 =  "(a,i1,a,a)", fmt_make_fmt_i2 = "(a,i2,a,a)"
-    CHARACTER(LEN = * ),PARAMETER :: fmt_make_fmt_f1 = "(a,a,i1,a,a)", fmt_make_fmt_f2 = "(a,a,i2,a,a)"
-    CHARACTER(LEN = * ),PARAMETER :: fmt_lettura_input="(a20,a40)", fmt_scrittura_parametri="(a4,i3,a6,f5.1,a11,f5.3,a6,i2,a10,i6)"
-    CHARACTER(LEN = * ),PARAMETER ::  fmt_LWORK_term = "(a40, i7)",fmt_Aval = "(i4,f15.10)"
     !
-    INTEGER :: unit_output_eVectors = 20,j
     !
 END MODULE Dichiarazione_A

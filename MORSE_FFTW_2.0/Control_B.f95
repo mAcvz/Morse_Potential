@@ -1,11 +1,12 @@
 MODULE Control_B
-! 
+    !
+    !
+    !
     USE Dichiarazione_B
     !
     IMPLICIT NONE
     !
     CONTAINS
-    !
     !
     ! CONTROLLO PARAMETRI INGRESSO
     SUBROUTINE Control_Ins()
@@ -46,6 +47,8 @@ MODULE Control_B
             STOP
         END IF
         END SUBROUTINE Control_ZHEEV
-!
+    !
+    !
+    !
 END MODULE Control_B
 

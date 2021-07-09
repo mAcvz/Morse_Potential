@@ -17,16 +17,17 @@
     !
     CONTAINS 
     !
-    SUBROUTINE Scrittura_File_Autoval()      !!! scrittura AUTOVALORI
+    !
+    ! SCRITTURA AUTOVALORI
+    SUBROUTINE Scrittura_File_Autoval()      
         !
         IMPLICIT NONE 
-        !
         !
         OPEN(UNIT=UnitAVAL,FILE=FileName_Autoval,IOSTAT=ioerr)
         !
         WRITE(UNIT=UnitAVAL,FMT='(a22)' ,IOSTAT=ioerr) "Indice     Autovalore"
         !
-        WRITE(UNIT=UnitAVAL,FMT= FMTwrite_AV,IOSTAT=ioerr)(i,"    ",D(N-i)/2,i=0,M-1)   ! stampa A.Valori su file
+        WRITE(UNIT=UnitAVAL,FMT= fmt_write_AV,IOSTAT=ioerr)(i,"    ",D(N-i)/2,i=0,M-1)   ! stampa A.Valori su file
         !
         WRITE(*,*)"Anteprima autovalori:" // NEW_LINE("A")
         WRITE(*,FMT="(i3,f15.10)",IOSTAT=ioerr)(i,D(N-i)/2,i=0,M-1)                  ! stampa A.Valori su display
@@ -44,7 +45,7 @@
     END SUBROUTINE Scrittura_File_Autoval
     !
     !
-    !
+    ! SCRITTURA AUTOVETTORI
     SUBROUTINE  Scrittura_File_Autovet()
         ! GENEREA UNA COPPIA DI IDENTIFICATORI ADATTI A STAMPARE "M" COLONNE NEL FILE 
         CHARACTER(LEN = 2) :: index
@@ -57,7 +58,7 @@
          END DO 
         !
         ! GENERAZIONE DESCRITTORI DI FORMATO 
-        OPEN(UNIT=unit_output_eVectors,FILE=unit_eVectors_name,IOSTAT=ioerr)
+        OPEN(UNIT=UnitAVET,FILE=FileName_Autovet,IOSTAT=ioerr)
         IF(M .LT. 10) THEN 
             WRITE(fmt_write_row ,FMT=fmt_make_fmt_f1) '(',"f8.4,",M,fmt_A_vet,')'
             WRITE(fmt_write_header ,FMT=fmt_make_fmt_i1) '(2x,a,8x,',M,fmt_A_vet_header,')'
@@ -67,19 +68,19 @@
         END IF 
         !
         ! SCRITTURA SU FILE DI HEADER & AUTOVETTORI 
-        WRITE(UNIT=unit_output_eVectors,FMT = fmt_write_header,IOSTAT=ioerr) "x",(",",TRIM(header(j)),j=1,M)
+        WRITE(UNIT=UnitAVET,FMT = fmt_write_header,IOSTAT=ioerr) "x",(",",TRIM(header(j)),j=1,M)
         !
         DO i=1,N,N/P
-            WRITE(UNIT=unit_output_eVectors,FMT = fmt_write_row,IOSTAT=ioerr) (h*(i-1)),(",",REAL(Z(i,N-j)),j=0,M-1)
-        END DO  !fmt_write_row  (f8.4,5(f15.10))  
+            WRITE(UNIT=UnitAVET,FMT = fmt_write_row,IOSTAT=ioerr) (h*(i-1)),(",",REAL(Z(i,N-j)),j=0,M-1)
+        END DO  
         !         
-        CLOSE(UNIT=unit_output_eVectors,IOSTAT=ioerr)
+        CLOSE(UNIT=UnitAVET,IOSTAT=ioerr)
         control_2: IF (ioerr .NE. 0) THEN
             !
             PRINT "('ESITO SCRITTURA FILE AUTOVETTORI : ioerr = ',i1,' ERRORE')",ioerr   ! Esito operazione
             !
         ELSE
-            WRITE(*,*) NEW_LINE("A") // "AUTOVETTORI STAMPATI CORRETAMENTE SUL FILE: " , unit_eVectors_name ! Esito operazione
+            WRITE(*,*) NEW_LINE("A") // "AUTOVETTORI STAMPATI CORRETAMENTE SUL FILE: " , FileName_Autovet ! Esito operazione
         END IF control_2
         !
     END SUBROUTINE Scrittura_File_Autovet
