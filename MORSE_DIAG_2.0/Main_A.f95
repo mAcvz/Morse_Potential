@@ -52,8 +52,8 @@ PROGRAM Main_A
     ALLOCATE(Z(LDZ,N))
     !
     ! CALCOLO: passo di avanzamento h e creazione vettori E e D
-    h = L/(N-1)
-    E = -1. / h**2 
+    h = L/DBLE(N-1)
+    E = -1.d0 / h**2 
     !
     !
     DO i = 1,N 

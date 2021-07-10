@@ -13,7 +13,7 @@ MODULE Dichiarazione_B
     ! N - ordine della matrice A & numero di onde piane della base
     !
     ! JOBZ ---- valori posisbili: 'N' & 'V'
-    !         - JOBZ = 'N' => subroutine detemrmina solo autovalori 
+    !         - JOBZ = 'N' => subroutine detemrmina solo gli autovalori 
     !         - JOBZ = 'V' => subroutine detemrina autovalori & autovettori
     ! UPLO ---- valori posisbili: 'U' & 'L'
     !         - UPLO = 'U' => matrice A triangolare superiore 
@@ -45,7 +45,7 @@ MODULE Dichiarazione_B
     ! unit_input_name - file.txt di input
     ! unit_eValues_name - file.txt output autovalori
     ! unit_eVectors_name - file.txt output autovettori
-    ! fmt_ (...) - variabili contenenti i vari formati sotto forma di stringa 
+    ! fmt_(...) - variabili contenenti i vari formati sotto forma di stringa 
     !
     ! ( ioerr,ioerrInput ) - variabili di controllo 
     ! (i,j,s) - variabili iterative
@@ -62,7 +62,7 @@ MODULE Dichiarazione_B
     ! 
     ! label - variabile junk che prente in ingresso stringhe 
     ! header - vettore di tipo CHARACTER contenente le intestazioni delle diverse colonne
-    !
+    ! norma - varibile di normalizzazione delle autofunzioni 
     !
     IMPLICIT NONE
     ! COSTANTI DI LAVORO 
@@ -73,7 +73,7 @@ MODULE Dichiarazione_B
     !
     INTEGER :: N,M,i,j,s, INFO,LWORK
     CHARACTER,PARAMETER :: JOBZ = "V", UPLO = "U"
-    REAL(KIND = dp) :: h,L,alpha,step
+    REAL(KIND = dp) :: h,L,alpha,step,norma
     INTEGER(KIND = dp) :: plan
     REAL(KIND = dp),DIMENSION(:),ALLOCATABLE :: x,w,K_vec,RWORK
     COMPLEX(KIND = dp),DIMENSION(:),ALLOCATABLE :: in, out, WORK
@@ -95,10 +95,12 @@ MODULE Dichiarazione_B
     CHARACTER(LEN = * ),PARAMETER :: fmt_A_vet="(a,f15.10)",fmt_A_vet_header= "(a,a,8x)"
     CHARACTER(LEN = * ),PARAMETER :: fmt_make_fmt_i1 =  "(a,i1,a,a)", fmt_make_fmt_i2 = "(a,i2,a,a)"
     CHARACTER(LEN = * ),PARAMETER :: fmt_make_fmt_f1 = "(a,a,i1,a,a)", fmt_make_fmt_f2 = "(a,a,i2,a,a)"
-    CHARACTER(LEN = * ),PARAMETER :: fmt_lettura_input="(a20,a50)", fmt_scrittura_parametri="(a4,i4,a6,f7.1,a11,f7.3,a6,i2,a10,i7)"
-    CHARACTER(LEN = * ),PARAMETER ::  fmt_LWORK_term = "(a40, i7)",fmt_Aval = "(i4,f15.10)"
+    CHARACTER(LEN = * ),PARAMETER :: fmt_scrittura_parametri="(a,i4,a,f7.1,a,f7.3,a,i2,a,i7)"
+    CHARACTER(LEN = * ),PARAMETER ::  fmt_LWORK_term = "(a,i7)",fmt_Aval = "(i4,f20.10)"
     !
     ! VARIABILI DI CONTROLLO
     INTEGER :: ioerrInput=0,ioerr=0
+
+    COMPLEX(KIND=dp) :: img = dcmplx(0,1)
 !
 END MODULE Dichiarazione_B

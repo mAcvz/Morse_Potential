@@ -36,7 +36,7 @@ MODULE Control_B
         END IF 
         !
         IF (alpha .LT. 0.5 .OR. alpha .GT. 2.0 ) THEN  ! CONTROLLO RANGE DI ALPHA
-            WRITE(*,*) "WARNING: valore di alpha non appartenente a [0.5,2.0]"
+            WRITE(*,*) "WARNING: valore di alpha non appartenente a [0.5,2.0]" // NEW_LINE("A")
             CONTINUE
         END IF 
         !

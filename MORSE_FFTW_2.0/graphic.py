@@ -25,5 +25,6 @@ for ind, column in enumerate(df.columns[1:]):
     plt.legend(["Auto vettore " + str(ind+1)], prop={"size":lgsize})
     plt.xlabel("x",fontsize = lbsize)
     plt.ylabel("y",fontsize = lbsize)
+    #plt.hlines(L[1],L[2],data.V.iloc[-1])
     plt.savefig(directory + name_figure,dpi = my_dpi)
 #

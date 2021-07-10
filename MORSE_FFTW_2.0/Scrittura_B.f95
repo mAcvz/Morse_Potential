@@ -33,10 +33,10 @@ MODULE Scrittura_B
         ! GENERAZIONE DESCRITTORI DI FORMATO 
         OPEN(unit=unit_output_eVectors,file=unit_eVectors_name,IOSTAT=ioerr)
         IF(M .LT. 10) THEN 
-            WRITE(fmt_write_row ,fmt=fmt_make_fmt_f1) '(',"f8.4,",M,fmt_A_vet,')'
+            WRITE(fmt_write_row ,fmt=fmt_make_fmt_f1) '(',"f12.7,",M,fmt_A_vet,')'
             WRITE(fmt_write_header ,fmt=fmt_make_fmt_i1) '(2x,a,8x,',M,fmt_A_vet_header,')'
         ELSE IF (M .LT. 100) THEN 
-            WRITE(fmt_write_row ,fmt=fmt_make_fmt_f2) '(',"f8.4,",M,fmt_A_vet,')'
+            WRITE(fmt_write_row ,fmt=fmt_make_fmt_f2) '(',"f12.7,",M,fmt_A_vet,')'
             WRITE(fmt_write_header ,fmt=fmt_make_fmt_i1) '(2x,a,10x,',M,fmt_A_vet_header,')'
         END IF 
         !
@@ -46,6 +46,7 @@ MODULE Scrittura_B
         !
         DO i=1,dim_G
             WRITE(unit=unit_output_eVectors,fmt= fmt_write_row,IOSTAT=ioerr) griglia(i),(",",REAL(Avett(i,j)),j=1,M)
+            !WRITE(unit=unit_output_eVectors,fmt= *,IOSTAT=ioerr) griglia(i),(",",REAL(Avett(i,j)),j=1,M)
         END DO  
         !         
         CLOSE(unit=unit_output_eVectors,IOSTAT=ioerr)

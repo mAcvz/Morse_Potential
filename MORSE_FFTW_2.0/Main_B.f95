@@ -8,7 +8,7 @@ PROGRAM  Main_B
     ! nello spazio dei k, dopo di che la si diagonalizza richiamando la funzione lapack ZHEEV(...) 
     ! e si ottiene una matrice di coefficenti impiegati per cotruire 
     ! una combinazione linera delle onde piane di una base opportunamente scelta. La comb. lin.
-    ! cosí ottenuta restituisce gli autovettori dell'Hamiltoniana 
+    ! cosí ottenuta restituisce gli autovettori dell'Hamiltoniana del sistema.
     ! 
     ! VARIABLES dichiarate in MODULE Dichiazione_B
     ! SUBROUTINE di controllo in MODULE Control_B
@@ -61,16 +61,17 @@ PROGRAM  Main_B
         ALLOCATE(WORK(LWORK))
         ALLOCATE(K_vec(N))
         ALLOCATE(RWORK(3*N-2))
-        ALLOCATE(Avett(dim_G,M))
+        !ALLOCATE(Avett(dim_G,M))
+        ALLOCATE(Avett(N,M))
         !
-        h = 2*L/DBLE(N)   
+        h = L/DBLE(N)   
         DO i=0, N-1
             x(i+1) = h*i
-            in(i+1) = (1 - EXP(-(alpha)*(x(i+1)- L/6.d0) ))**2 
+            in(i+1) = (1 - EXP(-(alpha)*(x(i+1)- 5.d0) ))**2 
         END DO
         !
         ! CREAZIONE GRIGLIA 
-        step = 2*L/ DBLE(dim_G - 1)
+        step = L/ DBLE(dim_G - 1)
         DO i = 0,(dim_G -1)
             griglia(i+1) = i*step 
         END DO 
@@ -89,11 +90,11 @@ PROGRAM  Main_B
         END DO   
         !
         Ham = 0.d0   
-        DO i=1,N
-            IF (i <= N/2) THEN
-                K_vec(i) = i*(pi/L)
-            ELSE IF (i > N/2) THEN 
-                K_vec(i) = (i-N)*(pi/L)
+        DO i=0,N-1
+            IF (i < N/2) THEN
+                K_vec(i+1) = i*(pi/L)
+            ELSE IF (i >= N/2) THEN 
+                K_vec(i+1) = (i-N)*(pi/L)
             END IF 
         END DO 
         !
@@ -101,7 +102,7 @@ PROGRAM  Main_B
             Ham(i,i) = K_vec(i)**2
         END DO 
         !    
-        Ham = Ham + V       ! FFTW
+        Ham = Ham + V       
         !
         ! DIAGONALIZZAZIONE  Ham TRAMITE ROUTINE LAPACK
         ! http://www.netlib.org/lapack/explore-html/df/d9a/group__complex16_h_eeigen_gaf23fb5b3ae38072ef4890ba43d5cfea2.html#gaf23fb5b3ae38072ef4890ba43d5cfea2
@@ -121,19 +122,29 @@ PROGRAM  Main_B
         !
         !
         ! AUTOVETTORI RIPORTATI IN SPAZIO REALE
-        ! PER ORA NON MOLTIPLICHIAMO PER LA NORMALIZZAZIONE TANTO  !!!!!!!!!!!!!!!!!!!!! ATTENZIONE !!!!!!!!!!!!!!!!!!!!!!!!
-        ! E' UN FATTORE MOLTIPLICATIVO, NON VARIA L'ANDAMENTO
+        !
+        norma = 1/sqrt(L)
+        !DO s=1,M
+        !    DO i=1,dim_G
+        !        sum = 0
+        !        DO j=1,N
+        !           sum = sum + norma*CMPLX(COS(K_vec(j)*griglia(i)),SIN(K_vec(j)*griglia(i)),KIND=dp)*Ham(j,s)
+        !        END DO 
+        !        Avett(i,s) = sum 
+        !    END DO 
+        !END DO 
+        !
+        !
         DO s=1,M
-            DO i=1,dim_G
+            DO i=1,N
                 sum = 0
                 DO j=1,N
-                   sum = sum + CMPLX(COS(K_vec(j)*griglia(i)),-SIN(K_vec(j)*griglia(i)),KIND=dp)*Ham(j,s)
+                   sum = sum + norma*EXP(img*x(i)*K_vec(j))*Ham(j,s)
                 END DO 
                 Avett(i,s) = sum 
             END DO 
         END DO 
-        !
-        ! STAMPA SU FILE AUTO VETTORI 1,2 ... M
+        ! STAMPA SU FILE AUTOVETTORI 1,2 ... M
         CALL Scrittura_A_vet() 
         !
         WRITE(*,*) NEW_LINE("A"),"END TASK B" ,NEW_LINE("A")
