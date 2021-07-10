@@ -67,7 +67,7 @@ PROGRAM  Main_B
         h = L/DBLE(N)   
         DO i=0, N-1
             x(i+1) = h*i
-            in(i+1) = (1 - EXP(-(alpha)*(x(i+1)- 5.d0) ))**2 
+            in(i+1) = (1 - EXP(-(alpha)*(x(i+1) - 5.d0) ))**2 
         END DO
         !
         ! CREAZIONE GRIGLIA 
@@ -92,11 +92,19 @@ PROGRAM  Main_B
         Ham = 0.d0   
         DO i=0,N-1
             IF (i < N/2) THEN
-                K_vec(i+1) = i*(pi/L)
+                K_vec(i+1) = DBLE(i)*(2*pi/L)
             ELSE IF (i >= N/2) THEN 
-                K_vec(i+1) = (i-N)*(pi/L)
+                K_vec(i+1) = DBLE(i-N)*(2*pi/L)
             END IF 
         END DO 
+        !  
+        !DO i=1,N
+        !    IF (i <= N/2) THEN
+        !        K_vec(i) = i*(2*pi/L)
+        !    ELSE IF (i > N/2) THEN 
+        !        K_vec(i) = (i-N)*(2*pi/L)
+        !    END IF 
+        !END DO 
         !
         DO i=1,N
             Ham(i,i) = K_vec(i)**2

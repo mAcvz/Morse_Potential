@@ -44,9 +44,9 @@ MODULE Scrittura_B
         WRITE(unit=unit_output_eVectors,fmt=fmt_write_header,IOSTAT=ioerr) "x",(",",TRIM(header(j)),j=1,M)
         !
         !
-        DO i=1,dim_G
-            WRITE(unit=unit_output_eVectors,fmt= fmt_write_row,IOSTAT=ioerr) griglia(i),(",",REAL(Avett(i,j)),j=1,M)
-            !WRITE(unit=unit_output_eVectors,fmt= *,IOSTAT=ioerr) griglia(i),(",",REAL(Avett(i,j)),j=1,M)
+        DO i=1,N
+            WRITE(unit=unit_output_eVectors,fmt= fmt_write_row,IOSTAT=ioerr) x(i),(",",REAL(Avett(i,j)),j=1,M)
+            !WRITE(unit=unit_output_eVectors,fmt= *,IOSTAT=ioerr) x(i),(",",REAL(Avett(i,j)),j=1,M)
         END DO  
         !         
         CLOSE(unit=unit_output_eVectors,IOSTAT=ioerr)
