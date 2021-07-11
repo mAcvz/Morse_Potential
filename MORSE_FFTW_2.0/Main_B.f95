@@ -55,23 +55,21 @@ PROGRAM  Main_B
         ALLOCATE(x(N))
         ALLOCATE(in(N))
         ALLOCATE(out(N))
-        ALLOCATE(V(N,N))
         ALLOCATE(Ham(N,N))
         ALLOCATE(W(N))
         ALLOCATE(WORK(LWORK))
         ALLOCATE(K_vec(N))
         ALLOCATE(RWORK(3*N-2))
-        !ALLOCATE(Avett(dim_G,M))
-        ALLOCATE(Avett(N,M))
+        ALLOCATE(Avett(dim_G,M))
         !
         h = L/DBLE(N)   
         DO i=0, N-1
             x(i+1) = h*i
-            in(i+1) = (1 - EXP(-(alpha)*(x(i+1) - 5.d0) ))**2 
+            in(i+1) = (1 - EXP(-(alpha)*(x(i+1) - xo) ))**2 
         END DO
         !
         ! CREAZIONE GRIGLIA 
-        step = L/ DBLE(dim_G - 1)
+        step = L/ DBLE(dim_G)
         DO i = 0,(dim_G -1)
             griglia(i+1) = i*step 
         END DO 
@@ -82,21 +80,6 @@ PROGRAM  Main_B
         CALL dfftw_destroy_plan(plan)
         out = out/DBLE(N)     
         !   
-        ! COSTRUZIONE MATRICE V
-        !DO i=1,N
-        !    DO j = 1, N-i 
-        !        V(i,i+j) = (out(N-(j-i)))  
-        !    END DO
-        !    V(i,i) = out(1)  
-        !END DO   
-        !
-        Ham = 0.d0   
-        !DO i = 0, N/2-1
-        !    K_vec(i) = dble(i)*(2*pi/L)
-        !END DO
-        !DO i = -N/2, -1
-        !    K_vec(i+N) = dble(i)*(2*pi/L)
-        !END DO
         DO i=0,N-1
             IF (i < N/2) THEN
                 K_vec(i+1) = DBLE(i)*(2*pi/L)
@@ -104,14 +87,6 @@ PROGRAM  Main_B
                 K_vec(i+1) = DBLE(i-N)*(2*pi/L)
             END IF 
         END DO 
-        !  
-        !DO i=1,N
-        !    IF (i <= N/2) THEN
-        !        K_vec(i) = i*(2*pi/L)
-        !    ELSE IF (i > N/2) THEN 
-        !        K_vec(i) = (i-N)*(2*pi/L)
-        !    END IF 
-        !END DO 
         !
         !DO i=1,N
         !    Ham(i,i) = K_vec(i)**2
@@ -120,14 +95,10 @@ PROGRAM  Main_B
         !Ham = Ham + V  
         DO i = 1,N
             DO j = 1,N
-                IF (i .ne. j) THEN
-                    !IF (i-j > 0) THEN
-                    !    Ham(i,j) = out(i-j+1)
-                    !ELSE
-                    IF (i-j<0) THEN    
-                        Ham(i,j) = out(N-(j-i)+1) 
-                    ENDIF
-                ELSE   
+                !IF (i .ne. j) THEN
+                IF (i-j<0) THEN    
+                    Ham(i,j) = out(N-(j-i)+1) 
+                ELSE IF (i .EQ. j) THEN  
                     Ham(i,j) = K_vec(i)**2 + out(1) 
                 END IF
             END DO
@@ -150,25 +121,15 @@ PROGRAM  Main_B
         CALL Scrittura_A_val()
         !
         !
-        ! AUTOVETTORI RIPORTATI IN SPAZIO REALE
+        ! "M" AUTOVETTORI RIPORTATI IN SPAZIO REALE - valutati su 200 punti
         !
         norma = 1/sqrt(L)
-        !DO s=1,M
-        !    DO i=1,dim_G
-        !        sum = 0
-        !        DO j=1,N
-        !           sum = sum + norma*CMPLX(COS(K_vec(j)*griglia(i)),SIN(K_vec(j)*griglia(i)),KIND=dp)*Ham(j,s)
-        !        END DO 
-        !        Avett(i,s) = sum 
-        !    END DO 
-        !END DO 
-        !
         !
         DO s=1,M
-            DO i=1,N
+            DO i=1,dim_G
                 sum = 0
                 DO j=1,N
-                   sum = sum + EXP(img*x(i)*K_vec(j))*Ham(j,s)
+                   sum = sum + EXP(img*griglia(i)*K_vec(j))*Ham(j,s)
                 END DO 
                 Avett(i,s) = norma*sum 
             END DO 

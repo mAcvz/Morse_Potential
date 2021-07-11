@@ -55,7 +55,6 @@ MODULE Dichiarazione_B
     ! plan - piano di lavoro della routine FFTW3
     ! in - vettore contenente il potenziale di morse valutto sui punti x
     ! out - vettore contente la FFT del potenziale di morse 
-    ! V - matrice dimensione (N,N)  associata al potenziale di morse nella rap. ad onde piane
     ! K_vec - vettore contenente i vettori d'onda delle onde piane della base
     !
     ! Avett - matrice dimensione (dim_G,M) contenete i ptimi M autovettori (parte reale)
@@ -73,11 +72,12 @@ MODULE Dichiarazione_B
     !
     INTEGER :: N,M,i,j,s, INFO,LWORK
     CHARACTER,PARAMETER :: JOBZ = "V", UPLO = "U"
+    REAL(KIND = dp),PARAMETER :: xo = 5.d0
     REAL(KIND = dp) :: h,L,alpha,step,norma
     INTEGER(KIND = dp) :: plan
     REAL(KIND = dp),DIMENSION(:),ALLOCATABLE :: x,w,K_vec,RWORK
     COMPLEX(KIND = dp),DIMENSION(:),ALLOCATABLE :: in, out, WORK
-    COMPLEX(KIND = dp),DIMENSION(:,:),ALLOCATABLE :: Ham, V, Avett
+    COMPLEX(KIND = dp),DIMENSION(:,:),ALLOCATABLE :: Ham, Avett
     CHARACTER(LEN =20),DIMENSION(:),ALLOCATABLE :: header
     REAL(KIND = dp),DIMENSION(dim_G) :: griglia
     COMPLEX(KIND = dp) :: sum = (0.d0,0.d0)
