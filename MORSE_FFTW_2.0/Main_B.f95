@@ -83,13 +83,20 @@ PROGRAM  Main_B
         out = out/DBLE(N)     
         !   
         ! COSTRUZIONE MATRICE V
-        DO i=0,N-1
-            DO j = 1, N-i 
-                V(j,j+i)= (out(i+1))  
-            END DO  
-        END DO   
+        !DO i=1,N
+        !    DO j = 1, N-i 
+        !        V(i,i+j) = (out(N-(j-i)))  
+        !    END DO
+        !    V(i,i) = out(1)  
+        !END DO   
         !
         Ham = 0.d0   
+        !DO i = 0, N/2-1
+        !    K_vec(i) = dble(i)*(2*pi/L)
+        !END DO
+        !DO i = -N/2, -1
+        !    K_vec(i+N) = dble(i)*(2*pi/L)
+        !END DO
         DO i=0,N-1
             IF (i < N/2) THEN
                 K_vec(i+1) = DBLE(i)*(2*pi/L)
@@ -106,11 +113,25 @@ PROGRAM  Main_B
         !    END IF 
         !END DO 
         !
-        DO i=1,N
-            Ham(i,i) = K_vec(i)**2
-        END DO 
+        !DO i=1,N
+        !    Ham(i,i) = K_vec(i)**2
+        !END DO 
         !    
-        Ham = Ham + V       
+        !Ham = Ham + V  
+        DO i = 1,N
+            DO j = 1,N
+                IF (i .ne. j) THEN
+                    !IF (i-j > 0) THEN
+                    !    Ham(i,j) = out(i-j+1)
+                    !ELSE
+                    IF (i-j<0) THEN    
+                        Ham(i,j) = out(N-(j-i)+1) 
+                    ENDIF
+                ELSE   
+                    Ham(i,j) = K_vec(i)**2 + out(1) 
+                END IF
+            END DO
+        END DO     
         !
         ! DIAGONALIZZAZIONE  Ham TRAMITE ROUTINE LAPACK
         ! http://www.netlib.org/lapack/explore-html/df/d9a/group__complex16_h_eeigen_gaf23fb5b3ae38072ef4890ba43d5cfea2.html#gaf23fb5b3ae38072ef4890ba43d5cfea2
@@ -147,9 +168,9 @@ PROGRAM  Main_B
             DO i=1,N
                 sum = 0
                 DO j=1,N
-                   sum = sum + norma*EXP(img*x(i)*K_vec(j))*Ham(j,s)
+                   sum = sum + EXP(img*x(i)*K_vec(j))*Ham(j,s)
                 END DO 
-                Avett(i,s) = sum 
+                Avett(i,s) = norma*sum 
             END DO 
         END DO 
         ! STAMPA SU FILE AUTOVETTORI 1,2 ... M
