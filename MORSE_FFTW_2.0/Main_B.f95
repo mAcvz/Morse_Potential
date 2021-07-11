@@ -1,6 +1,5 @@
 PROGRAM  Main_B
     !
-    !
     ! 
     ! Programma che risolvere l'EQ. di Schrodinger unidimensionale per il potenziale di Morse. Il problema
     ! viene affrontato determinando A.Valori e A.Vettori (riscalati) nel modo seguente:
@@ -90,7 +89,6 @@ PROGRAM  Main_B
         !
         DO i = 1,N
             DO j = 1,N
-                !IF (i .ne. j) THEN
                 IF (i-j<0) THEN    
                     Ham(i,j) = out(N-(j-i)+1) 
                 ELSE IF (i .EQ. j) THEN  
@@ -115,9 +113,7 @@ PROGRAM  Main_B
         ! STAMPA SU FILE AUTOVALORI 1,2 ... M
         CALL Scrittura_A_val()
         !
-        !
         ! "M" AUTOVETTORI RIPORTATI IN SPAZIO REALE - valutati su 200 punti
-        !
         norma = 1/sqrt(L)
         !
         DO s=1,M

@@ -39,7 +39,6 @@ MODULE Control_A
             CONTINUE
         END IF 
         !
-        !
         IF ( M .GT. 99) THEN                         ! CONTROLLO N° A.VETTORI & A.VALORI STAMPATI
             WRITE(*,*) "ERRORE: n° di autovettori richiesti in fase di stampa ECCESSIVO - ARRESTO"
             STOP
