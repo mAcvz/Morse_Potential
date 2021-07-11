@@ -32,7 +32,7 @@ MODULE Dichiarazione_B
     !
     !
     ! Variabili di lavoro del main program:
-    !
+    ! xo - punto della griglia che identifica la distanza all'equiliburio
     ! alpha - parametro che determina l'ampiezza della buca di potenziale di morse
     ! L - ampiezza intervallo 
     ! x - prima griglia su cui valutare il potenziale

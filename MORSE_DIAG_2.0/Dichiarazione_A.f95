@@ -32,7 +32,7 @@ MODULE Dichiarazione_A
     ! MaxN - numero massimo di punti su cui valutare il potenziale 
     ! WarnN_B - numero di punti elevato - tempistiche elevate 
     ! WarnN_L - numero di punti esiguo - bassa precisione 
-    !
+    ! xo - punto della griglia che identifica la distanza all'equiliburio
     ! alpha - parametro che determina l'ampiezza della buca di potenziale di morse
     ! ( ioerr,ioerrInput ) - variabili di controllo 
     ! ( UnitAVAL,UnitAVET,UnitRead) - numero varie unità  di memoria
@@ -52,6 +52,7 @@ MODULE Dichiarazione_A
     !
     INTEGER :: N, M, LDZ, Info
     CHARACTER,PARAMETER :: COMPTZ = 'I'
+    DOUBLE PRECISION,PARAMETER :: xo = 5.d0
     DOUBLE PRECISION:: h, L, alpha
     DOUBLE PRECISION, DIMENSION(:), ALLOCATABLE :: D, E, Work
     DOUBLE PRECISION, DIMENSION(:,:), ALLOCATABLE :: Z 

@@ -57,7 +57,7 @@ PROGRAM Main_A
     !
     !
     DO i = 1,N 
-        D(i) = (2./h**2 + (1 - exp(-(alpha)*(h*(i-1) - L/6.d0)))**2)  
+        D(i) = (2./h**2 + (1 - exp(-(alpha)*(h*(i-1) - xo)))**2)  
     END DO 
     !
     ! Funzione lapack: per determinazione di autovalori & auotovettori : controllare documentazione

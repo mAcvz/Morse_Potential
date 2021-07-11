@@ -79,7 +79,7 @@ PROGRAM  Main_B
         CALL dfftw_execute(plan,in,out)
         CALL dfftw_destroy_plan(plan)
         out = out/DBLE(N)     
-        !   
+        ! 
         DO i=0,N-1
             IF (i < N/2) THEN
                 K_vec(i+1) = DBLE(i)*(2*pi/L)
@@ -88,11 +88,6 @@ PROGRAM  Main_B
             END IF 
         END DO 
         !
-        !DO i=1,N
-        !    Ham(i,i) = K_vec(i)**2
-        !END DO 
-        !    
-        !Ham = Ham + V  
         DO i = 1,N
             DO j = 1,N
                 !IF (i .ne. j) THEN
