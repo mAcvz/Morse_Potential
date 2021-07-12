@@ -1,12 +1,12 @@
 PROGRAM  Main_B
     !
     ! 
-    ! Programma che risolvere l'EQ. di Schrodinger unidimensionale per il potenziale di Morse. Il problema
+    ! Programma che risolve l'EQ. di Schrodinger unidimensionale per il potenziale di Morse. Il problema
     ! viene affrontato determinando A.Valori e A.Vettori (riscalati) nel modo seguente:
-    ! si effettua una FFT del potenziele di Morse e si costruisce l'Hamiltoniana 
+    ! si effettua una FFT del potenziale di Morse e si costruisce l'Hamiltoniana 
     ! nello spazio dei k, dopo di che la si diagonalizza richiamando la funzione lapack ZHEEV(...) 
-    ! e si ottiene una matrice di coefficenti impiegati per cotruire 
-    ! una combinazione linera delle onde piane di una base opportunamente scelta. La comb. lin.
+    ! e si ottiene una matrice di coefficenti impiegati per costruire 
+    ! una combinazione lineare delle onde piane di una base opportunamente scelta. La comb. lin.
     ! cosí ottenuta restituisce gli autovettori dell'Hamiltoniana del sistema.
     ! 
     ! VARIABLES dichiarate in MODULE Dichiazione_B
@@ -54,16 +54,16 @@ PROGRAM  Main_B
         ALLOCATE(x(N))
         ALLOCATE(in(N))
         ALLOCATE(out(N))
-        ALLOCATE(Ham(N,N))
+        ALLOCATE(H(N,N))
         ALLOCATE(W(N))
         ALLOCATE(WORK(LWORK))
         ALLOCATE(K_vec(N))
         ALLOCATE(RWORK(3*N-2))
         ALLOCATE(Avett(dim_G,M))
         !
-        h = L/DBLE(N)   
+        dx = L/DBLE(N)   
         DO i=0, N-1
-            x(i+1) = h*i
+            x(i+1) = dx*i
             in(i+1) = (1 - EXP(-(alpha)*(x(i+1) - xo) ))**2 
         END DO
         !
@@ -90,16 +90,16 @@ PROGRAM  Main_B
         DO i = 1,N
             DO j = 1,N
                 IF (i-j<0) THEN    
-                    Ham(i,j) = out(N-(j-i)+1) 
+                    H(i,j) = out(N-(j-i)+1) 
                 ELSE IF (i .EQ. j) THEN  
-                    Ham(i,j) = K_vec(i)**2 + out(1) 
+                    H(i,j) = K_vec(i)**2 + out(1) 
                 END IF
             END DO
         END DO     
         !
-        ! DIAGONALIZZAZIONE  Ham TRAMITE ROUTINE LAPACK
+        ! DIAGONALIZZAZIONE  H TRAMITE ROUTINE LAPACK
         ! http://www.netlib.org/lapack/explore-html/df/d9a/group__complex16_h_eeigen_gaf23fb5b3ae38072ef4890ba43d5cfea2.html#gaf23fb5b3ae38072ef4890ba43d5cfea2
-        CALL ZHEEV (JOBZ,UPLO,N,Ham,N,W,WORK,LWORK,RWORK,INFO)
+        CALL ZHEEV (JOBZ,UPLO,N,H,N,W,WORK,LWORK,RWORK,INFO)
         CALL Control_ZHEEV()
         !
         WRITE(*,FMT=fmt_LWORK_term) "SCELTA OTTIMALE DELLA VARIABILE LWORK : ",INT(WORK(1))
@@ -120,7 +120,7 @@ PROGRAM  Main_B
             DO i=1,dim_G
                 sum = 0
                 DO j=1,N
-                   sum = sum + EXP(img*griglia(i)*K_vec(j))*Ham(j,s)
+                   sum = sum + EXP(img*griglia(i)*K_vec(j))*H(j,s)
                 END DO 
                 Avett(i,s) = norma*sum 
             END DO 

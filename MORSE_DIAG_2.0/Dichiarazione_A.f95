@@ -18,9 +18,9 @@ MODULE Dichiarazione_A
     ! E (out) - dealloacata in seguito all'esecuzione di DPTEQR(...)
     ! Z (out) - Matrice(LDZ,N) contenente autovettori della matrice studiata 
     ! LDZ  - dimensione dominante della matrice Z
-    ! Work - variabile di lavoro pr DPTEQR(...)
-    ! Info - varivabile di controllo per la funzione DPTEQR(...)
-    ! COMPTZ - parametro gestione out-put di DPTEQR()
+    ! Work - variabile di lavoro per DPTEQR(...)
+    ! Info - variabile di controllo per la funzione DPTEQR(...)
+    ! COMPTZ - parametro gestione output di DPTEQR()
     !
     ! PER ULTERIORI INF. CONSULTARE DOCUMENTAZIONE DPTEQR(COMPTZ, N, D, E, Z, LDZ, Work, Info)
     !
@@ -43,7 +43,7 @@ MODULE Dichiarazione_A
     ! FileName_Autoval - nome file.txt autovalori in fase di salvataggio su disco
     ! FileName_Autovet - nome file.txt autovettoir in fase di salvataggio su disco 
     ! 
-    ! label - variabile junk che prente in ingresso stringhe 
+    ! label - variabile junk che prende in ingresso stringhe 
     ! header - vettore di tipo CHARACTER contenente le intestazioni delle diverse colonne
     ! (i,j,k) - variabili iterative
     !

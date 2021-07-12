@@ -18,7 +18,7 @@ MODULE Scrittura_B
     !
     CONTAINS
     !
-    ! SUBROUTINE SCRITTURA COLONNE MATRICE Ham + vettore griglia
+    ! SUBROUTINE SCRITTURA COLONNE MATRICE H + vettore griglia
     SUBROUTINE Scrittura_A_vet()
         ! GENERA UNA COPPIA DI IDENTIFICATORI ADATTI A STAMPARE "M" COLONNE NEL FILE 
         CHARACTER(LEN = 2) :: index
@@ -45,7 +45,6 @@ MODULE Scrittura_B
         !
         !
         DO i=1,dim_G
-            !WRITE(unit=unit_output_eVectors,fmt= fmt_write_row,IOSTAT=ioerr) x(i),(",",REAL(Avett(i,j)),j=1,M)
             WRITE(unit=unit_output_eVectors,fmt= fmt_write_row,IOSTAT=ioerr) griglia(i),(",",REAL(Avett(i,j)),j=1,M)
         END DO  
         !         

@@ -25,7 +25,7 @@ MODULE Control_A
         IF (ioerrInput .EQ. 0 )  THEN  ! CONTROLLO LETTURA
             CONTINUE
         ELSE
-            WRITE(*,*) "(ERRORE DI INSERIMENTO: L,N,M,alpha non sono stati inseriti corretamente - ARRESTO)"
+            WRITE(*,*) "(ERRORE DI INSERIMENTO: L,N,M,alpha non sono stati inseriti correttamente - ARRESTO)"
             STOP
         END IF
         !
