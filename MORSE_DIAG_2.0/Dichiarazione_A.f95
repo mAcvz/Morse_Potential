@@ -63,7 +63,7 @@ MODULE Dichiarazione_A
     !
     !
     INTEGER :: k,i,j
-    INTEGER, PARAMETER :: P = 200, MaxN = 12000, WarnN_B = 4000 , WarnN_L = 20    
+    INTEGER, PARAMETER :: P = 200, MaxN = 12000, WarnN_B = 4000 , WarnN_L = 10    
     !
     !
     ! UNITA' SCRITTURA SU FILE 

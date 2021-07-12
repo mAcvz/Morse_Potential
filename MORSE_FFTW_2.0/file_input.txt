@@ -1,6 +1,6 @@
 PARAMETRI INPUT:
-200,   N
-100,    L
-0.5,     alpha
+100,   N
+50,    L
+0.6,     alpha
 5,     M
-6600,  LWORK
+2640,  LWORK
